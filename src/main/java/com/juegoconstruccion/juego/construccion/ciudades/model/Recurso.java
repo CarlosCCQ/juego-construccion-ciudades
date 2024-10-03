@@ -36,11 +36,11 @@ public class Recurso {
         this.id = id;
     }
 
-    public Tipo_recurso getTipoRecurso() {
+    public Tipo_recurso getTipoRecursos() {
         return tipoRecurso;
     }
 
-    public void setTipoRecurso(Tipo_recurso tipoRecurso) {
+    public void setTipoRecursos(Tipo_recurso tipoRecurso) {
         this.tipoRecurso = tipoRecurso;
     }
 

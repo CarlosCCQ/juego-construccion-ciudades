@@ -5,10 +5,12 @@ import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class RecursoService implements IRecursoService{
     @Autowired
     private RecursoRepository recursoRepository;
