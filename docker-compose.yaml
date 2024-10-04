@@ -1,0 +1,54 @@
+services:
+  postgres:
+    container_name: postgres-sql
+    image: postgres
+    env_file:
+      - src/.env  # Environment variables for Postgres configuration
+    ports:
+      - "1234:5432"  # Expose Postgres on port 1234
+    volumes:
+      - postgres:/var/lib/postgres/data  # Persist Postgres data
+    networks:
+      - spring-boot-net  # Connect to the specified network
+
+  citybuildinggame:
+    container_name: city_game
+    image: city_game  # Your application image
+    ports:
+      - "8081:8081"  # Expose application on port 8081
+    networks:
+      - spring-boot-net  # Connect to the specified network
+    depends_on:
+      - postgres  # Ensure Postgres starts before your application
+    stdin_open: true     
+    tty: true 
+  # Prometheus service
+  prometheus:
+    image: "prom/prometheus"
+    restart: unless-stopped  # Restart policy
+    networks:
+      - spring-boot-net  # Connect to the specified network
+    ports:
+      - "9090:9090"  # Expose Prometheus on port 9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Configuration file for Prometheus
+    depends_on:
+      - citybuildinggame  # Ensure your application starts before Prometheus
+
+  # Grafana service
+  grafana:
+    image: "grafana/grafana-enterprise"
+    restart: unless-stopped  # Restart policy
+    networks:
+      - spring-boot-net  # Connect to the specified network
+    ports:
+      - "3000:3000"  # Expose Grafana on port 3000
+    links:
+      - prometheus:prometheus  # Link to Prometheus
+
+volumes:
+  postgres:  # Define a named volume for Postgres data persistence
+
+networks:
+  spring-boot-net:
+    driver: bridge  # Use the bridge driver for networking
