@@ -1,8 +1,10 @@
 package com.juegoconstruccion.juego.construccion.ciudades.service;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.RecursoDto;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.repository.CiudadRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

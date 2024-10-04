@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.EdificioDto;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 
 public interface IEdificioService {
     List<EdificioDto> obtenerTodosLosEdificios();

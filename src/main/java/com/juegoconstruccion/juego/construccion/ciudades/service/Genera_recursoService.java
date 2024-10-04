@@ -1,8 +1,10 @@
 package com.juegoconstruccion.juego.construccion.ciudades.service;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.Genera_recursoDto;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Genera_recuso;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.repository.CiudadRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.GeneraRecursoRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

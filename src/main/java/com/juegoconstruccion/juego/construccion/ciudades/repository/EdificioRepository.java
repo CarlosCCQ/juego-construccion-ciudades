@@ -1,8 +1,9 @@
 package com.juegoconstruccion.juego.construccion.ciudades.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class EdificioRepository {
+import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Edificio;
+
+public interface EdificioRepository extends JpaRepository<Edificio , Long> {
     
 }

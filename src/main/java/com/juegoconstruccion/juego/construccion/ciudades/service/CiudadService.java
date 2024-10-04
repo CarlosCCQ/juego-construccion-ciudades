@@ -2,6 +2,7 @@ package com.juegoconstruccion.juego.construccion.ciudades.service;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.CiudadDto;
 import com.juegoconstruccion.juego.construccion.ciudades.model.*;
+import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Edificio;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.CiudadRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.EdificioRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.GeneraRecursoRepository;

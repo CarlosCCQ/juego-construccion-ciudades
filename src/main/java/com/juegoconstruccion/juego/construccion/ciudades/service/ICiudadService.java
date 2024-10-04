@@ -1,7 +1,6 @@
 package com.juegoconstruccion.juego.construccion.ciudades.service;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.CiudadDto;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
 
 import java.util.List;
 

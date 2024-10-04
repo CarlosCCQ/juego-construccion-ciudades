@@ -8,8 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.juegoconstruccion.juego.construccion.ciudades.dto.EdificioDto;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Edificio;
+import com.juegoconstruccion.juego.construccion.ciudades.repository.CiudadRepository;
 import com.juegoconstruccion.juego.construccion.ciudades.repository.EdificioRepository;
+import com.juegoconstruccion.juego.construccion.ciudades.repository.RecursoRepository;
+import com.juegoconstruccion.juego.construccion.ciudades.service.RecursoService;
 import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Tipo_edificio;
 @Service
 public class EdificioService implements IEdificioService{
@@ -23,6 +29,7 @@ public class EdificioService implements IEdificioService{
     @Autowired
     private RecursoRepository recursoRepository;
 
+    @Autowired
     private final RecursoService recursoService;
 
     public EdificioService(RecursoService recursoService) {
@@ -132,12 +139,6 @@ public class EdificioService implements IEdificioService{
                 edificio.isConstruccionCompleta(),
                 edificio.getCiudad().getId()
         );
-    }
-
-    @Override
-    public boolean verificarRecursosParaConstruir(Long ciudadId, Map<Tipo_recurso, Integer> costo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'verificarRecursosParaConstruir'");
     }
 }
 

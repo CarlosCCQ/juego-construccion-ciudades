@@ -2,6 +2,7 @@ package com.juegoconstruccion.juego.construccion.ciudades.dto;
 
 import java.util.Map;
 
+import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Tipo_edificio;
 
 public class EdificioDto {

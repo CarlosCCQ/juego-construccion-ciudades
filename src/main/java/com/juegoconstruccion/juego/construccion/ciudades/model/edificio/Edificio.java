@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.Map;
 
+import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
+
 @Entity(name = "edificio")
 @Table(name = "edificios")
 public class Edificio {
