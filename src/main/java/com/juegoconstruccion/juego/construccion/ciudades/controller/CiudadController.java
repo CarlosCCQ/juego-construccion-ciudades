@@ -13,27 +13,27 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<CiudadDto> obtenerTodasLasCiudades() {
         return ciudadService.obtenerTodasLasCiudades();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public CiudadDto obtenerCiudadPorId(@PathVariable Long id) {
         return ciudadService.obtenerCiudadPorId(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public CiudadDto crearCiudad(@RequestBody CiudadDto ciudadDto) {
         return ciudadService.crearCiudad(ciudadDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CiudadDto actualizarCiudad(@PathVariable Long id, @RequestBody CiudadDto ciudadDto) {
         return ciudadService.actualizarCiudad(id, ciudadDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void eliminarCiudad(@PathVariable Long id) {
         ciudadService.eliminarCiudad(id);
     }

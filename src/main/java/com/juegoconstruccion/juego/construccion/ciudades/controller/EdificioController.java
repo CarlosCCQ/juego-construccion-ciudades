@@ -13,32 +13,32 @@ import com.juegoconstruccion.juego.construccion.ciudades.service.edificio.IEdifi
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/edificios")
+@RequestMapping("/api/edificio")
 public class EdificioController {
     @Autowired
     private IEdificioService edificioService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<EdificioDto> obtenerTodosLosEdificios() {
         return edificioService.obtenerTodosLosEdificios();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public ResponseEntity<EdificioDto> obtenerEdificioPorId(@PathVariable Long id) {
         return ResponseEntity.ok(edificioService.obtenerEdificioPorId(id));
     }
 
-    @PostMapping
+    @PostMapping("/new-edificio")
     public ResponseEntity<EdificioDto> crearEdificio(@RequestBody EdificioDto edificioDto) {
         return new ResponseEntity<>(edificioService.crearEdificio(edificioDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<EdificioDto> actualizarEdificio(@PathVariable Long id, @RequestBody EdificioDto edificioDto) {
         return ResponseEntity.ok(edificioService.actualizarEdificio(id, edificioDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> eliminarEdificio(@PathVariable Long id) {
         edificioService.eliminarEdificio(id);
         return ResponseEntity.noContent().build();
