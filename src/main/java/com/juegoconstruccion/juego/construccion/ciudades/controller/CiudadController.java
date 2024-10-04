@@ -20,7 +20,6 @@ public class CiudadController {
 
     @Autowired
     private CiudadService ciudadService;
-
     // Métodos para realizar operaciones CRUD
 
     /**
@@ -28,7 +27,7 @@ public class CiudadController {
      *
      * @return Una lista de objetos CiudadDto que representan todas las ciudades.
      */
-    @GetMapping
+    @GetMapping("/all")
     public List<CiudadDto> obtenerTodasLasCiudades() {
         return ciudadService.obtenerTodasLasCiudades();
     }
@@ -39,7 +38,7 @@ public class CiudadController {
      * @param id El ID de la ciudad que se desea obtener.
      * @return Un objeto CiudadDto con los datos de la ciudad solicitada.
      */
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public CiudadDto obtenerCiudadPorId(@PathVariable Long id) {
         return ciudadService.obtenerCiudadPorId(id);
     }
@@ -50,7 +49,7 @@ public class CiudadController {
      * @param ciudadDto Los datos de la nueva ciudad en formato JSON.
      * @return Un objeto CiudadDto con los datos de la ciudad recién creada.
      */
-    @PostMapping
+    @PostMapping("/create")
     public CiudadDto crearCiudad(@RequestBody CiudadDto ciudadDto) {
         return ciudadService.crearCiudad(ciudadDto);
     }
@@ -62,7 +61,7 @@ public class CiudadController {
      * @param ciudadDto Los nuevos datos de la ciudad en formato JSON.
      * @return Un objeto CiudadDto con los datos actualizados de la ciudad.
      */
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CiudadDto actualizarCiudad(@PathVariable Long id, @RequestBody CiudadDto ciudadDto) {
         return ciudadService.actualizarCiudad(id, ciudadDto);
     }
@@ -72,7 +71,7 @@ public class CiudadController {
      *
      * @param id El ID de la ciudad que se desea eliminar.
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void eliminarCiudad(@PathVariable Long id) {
         ciudadService.eliminarCiudad(id);
     }

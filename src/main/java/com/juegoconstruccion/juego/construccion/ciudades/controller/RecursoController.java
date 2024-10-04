@@ -19,19 +19,19 @@ public class RecursoController {
         this.recursoService = recursoService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<RecursoDto>> obtenerTodosLosRecursos() {
         List<RecursoDto> recursos = recursoService.obtenerTodosLosRecursos();
         return ResponseEntity.ok(recursos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public ResponseEntity<RecursoDto> obtenerRecursoPorId(@PathVariable Long id) {
         RecursoDto recurso = recursoService.obtenerRecursoPorId(id);
         return ResponseEntity.ok(recurso);
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<RecursoDto> crearRecurso(@RequestBody RecursoDto recursoDto) {
         RecursoDto nuevoRecurso = recursoService.crearRecurso(recursoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoRecurso);

@@ -1,9 +1,12 @@
 package com.juegoconstruccion.juego.construccion.ciudades.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 
 public class RecursoDto {
     private Long id;
+
+    @JsonProperty("tipoRecurso")
     private Tipo_recurso tipoRecursos;
     private int cantidad;
     private Long ciudadId;
