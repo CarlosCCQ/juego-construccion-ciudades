@@ -26,14 +26,10 @@ jobs:
             cache: maven
         
         - name: Make mvnw executable
-          run: |
-            cd src 
-            chmod +x ./mvnw
+          run:  chmod +x ./mvnw
           
         - name: Compile project
-          run: |
-            cd src
-            ./mvnw clean compile
+          run: chmod +x ./mvnw
 
     unit-tests:
         runs-on: ubuntu-latest
@@ -49,14 +45,10 @@ jobs:
             distribution: 'temurin'
 
         - name: Make mvnw executable
-          run: |
-            cd src 
-            chmod +x ./mvnw
+          run: chmod +x ./mvnw
 
         - name: Running unit Tests
-          run: |
-            cd src
-            ./mvnw clean test
+          run: chmod +x ./mvnw
 
     build: 
         runs-on: ubuntu-latest
@@ -74,14 +66,10 @@ jobs:
             cache: maven
 
         - name: Make mvnw executable
-          run: |
-            cd src 
-            chmod +x ./mvnw
+          run: chmod +x ./mvnw
 
         - name: Build project
-          run: |
-            cd src
-            ./mvnw clean compile
+          run: chmod +x ./mvnw
 
     build-image:
         name: Build Docker image
@@ -97,9 +85,7 @@ jobs:
             java-version: '17'
             distribution: 'temurin'
         - name: Make mvnw executable
-          run: |
-            cd src 
-            chmod +x ./mvnw
+          run: chmod +x ./mvnw
 
        # - name: Extract porject version
         #  id: extract_version
