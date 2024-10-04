@@ -30,7 +30,6 @@ public class EdificioService implements IEdificioService{
     @Autowired
     private RecursoRepository recursoRepository;
 
-    @Autowired
     private final RecursoService recursoService;
 
     public EdificioService(RecursoService recursoService) {
