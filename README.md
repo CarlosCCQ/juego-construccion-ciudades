@@ -88,7 +88,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
   }
 }
 ```
- ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/create_ciudad.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/create_ciudad.jpg)
 
 ### 2. Mostrar Ciudad por id
 
@@ -97,7 +97,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 **Descripción**: Este request nos muestra la  ciudad por id..
 
 
-  ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/obtener_ciudad.png)
+  ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/obtener_ciudad.jpg)
 
 
 
@@ -119,7 +119,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 }
 ```
 
- ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_edificio.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_edificio.jpg)
 
 
 
@@ -140,7 +140,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 }
 ```
 
- ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_edificio_a.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_edificio_a.jpg)
 
 
 
@@ -161,7 +161,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 }
 ```
 
- ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_recurso.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_recurso.jpg)
 
 ### 6. Mostrar todos los  recursos
 
@@ -171,7 +171,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 
 
 
- ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/mostrar_recursos.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/mostrar_recursos.jpg)
 
 
 
@@ -187,7 +187,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
     http://localhost:9090
     ```
 
-    ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/prometheus.png)
+    ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/prometheus.png)
 
 
 2. En la interfaz de Prometheus, puedes hacer consultas sobre las métricas recolectadas. Por ejemplo:
@@ -195,7 +195,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
    - Métricas sobre el uso de CPU: `process_cpu_seconds_total`
    - Métricas sobre el estado de tus endpoints: `http_requests_total`
 
-    ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/prometheus_up.png)
+    ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/prometheus_up.png)
 
 3. También puedes ver el estado de las series de tiempo, targets y alertas.
 
@@ -213,7 +213,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 
    Se te pedirá cambiar la contraseña la primera vez que inicies sesión.
 
-    ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/grafana_login.png)
+    ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/grafana_login.png)
 
 
 3. Una vez dentro de Grafana:
@@ -225,7 +225,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
       ```
 
 
-    ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/grafana_con.png)
+    ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/grafana_con.png)
 
 
 
@@ -235,7 +235,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
     - Escribe una consulta para mostrar una métrica (por ejemplo, `http_requests_total`).
     - Guarda el panel y agrégalo a un dashboard.
 
-    ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/grafana_http.png)
+    ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/grafana_http.png)
 
 
 ## Simular gestion de ciudades
@@ -244,7 +244,7 @@ Para empezar a utilizar la API, aquí hay algunas rutas disponibles:
 
 Al iniciar el programa, el jugador verá el siguiente menú:
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/menu_consola.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/menu_consola.png)
 
 El jugador puede ingresar un número para seleccionar una opción y realizar acciones relacionadas con la gestión de la ciudad.
 
@@ -252,32 +252,32 @@ El jugador puede ingresar un número para seleccionar una opción y realizar acc
 
 1. **Crear ciudades**: Permite al jugador crear una nueva ciudad. Se solicita el nombre de la ciudad y se registran los recursos y la población iniciales.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/crear_ciudad_consola.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/crear_ciudad_consola.png)
 
 
    
 2. **Ver ciudades**: Muestra una lista de las ciudades que el jugador ha creado. Cada ciudad incluye detalles como el nombre, la población y los recursos disponibles.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/mostrar_ciudades_consola.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/mostrar_ciudades_consola.png)
 
 
 
 3. **Construir edificios**: Permite al jugador seleccionar una ciudad y construir edificios como granjas, fábricas o rascacielos. Cada edificio tiene un costo de construcción y tiempo de finalización.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/construir_edificio.png)
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/construir_edificio.png)
 
 
 4. **Generar recursos**: Aumenta los recursos de una ciudad a través de la agricultura o el uso de fábricas. Los recursos disponibles incluyen madera, piedra, agua y más.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/generar_recurso_consola.png) 
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/generar_recurso_consola.png) 
 
 5. **Ver estados de la ciudad**: Muestra el estado actual de una ciudad seleccionada, incluyendo la población, los recursos, el crecimiento económico y los edificios construidos.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/estado_ciudad.png) 
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/estado_ciudad.png) 
 
 
 
 6. **Salir**: Finaliza el programa.
 
- ![](https://github.com/HumbleG0d/api_city_building_game/blob/main/api/assets/salir_juego.png) 
+ ![](https://github.com/CarlosCCQ/juego-construccion-ciudades/blob/main/src/assets/salir_juego.png) 
 
