@@ -17,14 +17,37 @@ import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Controlador principal para manejar la lógica del juego, incluyendo la creación de ciudades,
+ * la construcción de edificios y la generación de recursos.
+ */
 @Controller
 public class MainGameController {
+
+    /** Servicio para manejar las ciudades. */
     private final CiudadService ciudadService;
+
+    /** Servicio para manejar los edificios. */
     private final EdificioService edificioService;
+
+    /** Servicio para manejar los generadores de recursos. */
     private final Genera_recursoService generaRecursoService;
+
+    /** Servicio para manejar los recursos. */
     private final RecursoService recursoService;
+
+    /** Executor programado para tareas periódicas. */
     private final ScheduledExecutorService scheduler;
 
+    /**
+     * Constructor de MainGameController.
+     *
+     * @param ciudadService servicio para manejar las operaciones relacionadas con las ciudades.
+     * @param edificioService servicio para manejar las operaciones relacionadas con los edificios.
+     * @param generaRecursoService servicio para manejar las operaciones relacionadas con los generadores de recursos.
+     * @param recursoService servicio para manejar las operaciones relacionadas con los recursos.
+     * @param scheduler servicio para programar tareas periódicas.
+     */
     @Autowired
     public MainGameController(CiudadService ciudadService, EdificioService edificioService, Genera_recursoService generaRecursoService, RecursoService recursoService, ScheduledExecutorService scheduler){
         this.ciudadService = ciudadService;
@@ -34,6 +57,9 @@ public class MainGameController {
         this.scheduler = scheduler;
     }
 
+    /**
+     * Inicia el juego, mostrando el menú principal y manejando las interacciones del usuario.
+     */
     public void startGame(){
         iniciarGeneracionAutomaticaRecursos();
         Scanner scanner = new Scanner(System.in);
@@ -80,6 +106,9 @@ public class MainGameController {
         scanner.close();
     }
 
+    /**
+     * Inicia la generación automática de recursos para las ciudades cada cierto intervalo.
+     */
     private void iniciarGeneracionAutomaticaRecursos() {
         Runnable generarRecursosTask = () -> {
             List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
@@ -98,6 +127,9 @@ public class MainGameController {
         scheduler.scheduleAtFixedRate(generarRecursosTask, 30, 30, TimeUnit.SECONDS);
     }
 
+    /**
+     * Detiene la generación automática de recursos.
+     */
     private void detenerGeneracionAutomaticaRecursos() {
         scheduler.shutdown();
         try {
@@ -109,6 +141,11 @@ public class MainGameController {
         }
     }
 
+    /**
+     * Crea una nueva ciudad a partir de la entrada del usuario.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     */
     private void crearCiudad(Scanner scanner){
         System.out.println("Ingrese el nombre de la ciudad: ");
         String nombreCiudad = scanner.nextLine();
@@ -133,6 +170,9 @@ public class MainGameController {
         System.out.println("3. RIO -> AGUA");
     }
 
+    /**
+     * Muestra todas las ciudades creadas.
+     */
     private void mostrarCiudades(){
         List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
         System.out.println("\n** Ciudades **");
@@ -145,6 +185,11 @@ public class MainGameController {
         }
     }
 
+    /**
+     * Permite al usuario construir un edificio en una ciudad seleccionada.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     */
     private void construirEdificio(Scanner scanner) {
         crearCiudadSiNoExiste(scanner);
 
@@ -206,6 +251,12 @@ public class MainGameController {
         System.out.println("Edificio construido: " + nuevoEdificio.getNombre());
     }
 
+    /**
+     * Permite al usuario seleccionar una ciudad para la construcción de un edificio.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     * @return el ID de la ciudad seleccionada, o null si no se selecciona ninguna.
+     */
     private Long seleccionarCiudad(Scanner scanner) {
         List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
         System.out.println("\n** Ciudades Disponibles **");
@@ -217,6 +268,11 @@ public class MainGameController {
         return scanner.nextLong();
     }
 
+    /**
+     * Crea una nueva ciudad si no hay ciudades existentes.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     */
     private void crearCiudadSiNoExiste(Scanner scanner) {
         List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
         if (ciudades.isEmpty()) {
@@ -227,6 +283,11 @@ public class MainGameController {
         }
     }
 
+    /**
+     * Genera recursos para una ciudad específica, basándose en la entrada del usuario.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     */
     private void generarRecursos(Scanner scanner){
         System.out.println("Ingrese el ID de la ciudad donde quiere generar recursos: ");
         Long ciudadId = scanner.nextLong();
@@ -250,6 +311,11 @@ public class MainGameController {
         System.out.println("Generando " + generadorSeleccionado.getCapacidadGeneracion() + " de " + generadorSeleccionado.getTipoRecursoGenerado() + "...");
     }
 
+    /**
+     * Muestra el estado de una ciudad específica, incluyendo recursos y edificios.
+     *
+     * @param scanner objeto Scanner para la entrada del usuario.
+     */
     private void verEstadoCiudad(Scanner scanner){
         String nombreCiudad = "";
         CiudadDto ciudad = null;
