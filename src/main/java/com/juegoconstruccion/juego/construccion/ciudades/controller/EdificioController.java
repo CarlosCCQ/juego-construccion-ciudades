@@ -1,7 +1,5 @@
 package com.juegoconstruccion.juego.construccion.ciudades.controller;
 
-
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

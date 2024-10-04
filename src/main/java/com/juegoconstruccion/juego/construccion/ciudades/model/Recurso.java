@@ -11,7 +11,7 @@ public class Recurso {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Tipo_recurso tipoRecurso;
+    private Tipo_recurso tipoRecursos;
 
     @Column(nullable = false)
     private int cantidad;
@@ -22,8 +22,8 @@ public class Recurso {
 
     public Recurso(){}
 
-    public Recurso(Tipo_recurso tipoRecurso, int cantidad, Ciudad ciudad){
-        this.tipoRecurso = tipoRecurso;
+    public Recurso(Tipo_recurso tipoRecursos, int cantidad, Ciudad ciudad){
+        this.tipoRecursos = tipoRecursos;
         this.cantidad = cantidad;
         this.ciudad = ciudad;
     }
@@ -37,11 +37,11 @@ public class Recurso {
     }
 
     public Tipo_recurso getTipoRecursos() {
-        return tipoRecurso;
+        return tipoRecursos;
     }
 
     public void setTipoRecursos(Tipo_recurso tipoRecurso) {
-        this.tipoRecurso = tipoRecurso;
+        this.tipoRecursos = tipoRecursos;
     }
 
     public int getCantidad() {
