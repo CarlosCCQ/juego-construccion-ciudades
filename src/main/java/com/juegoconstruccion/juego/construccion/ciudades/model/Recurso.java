@@ -40,7 +40,7 @@ public class Recurso {
         return tipoRecursos;
     }
 
-    public void setTipoRecursos(Tipo_recurso tipoRecurso) {
+    public void setTipoRecursos(Tipo_recurso tipoRecursos) {
         this.tipoRecursos = tipoRecursos;
     }
 
