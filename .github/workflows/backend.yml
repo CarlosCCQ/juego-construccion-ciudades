@@ -1,0 +1,126 @@
+name: API
+
+on:
+    push:
+        branches:
+            - feature/ci-cd
+            - develop
+            - main
+        paths:
+            - 'docker-compose.yml'
+            - .github/workflows/backend.yml
+
+jobs:
+    compile:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: 
+          uses: actions/checkout@v4
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+        
+        - name: Make mvnw executable
+          run: |
+            cd src 
+            chmod +x ./mvnw
+          
+        - name: Compile project
+          run: |
+            cd src
+            ./mvnw clean compile
+
+    unit-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: 
+          uses: actions/checkout@v4
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+
+        - name: Make mvnw executable
+          run: |
+            cd src 
+            chmod +x ./mvnw
+
+        - name: Running unit Tests
+          run: |
+            cd src
+            ./mvnw clean test
+
+    build: 
+        runs-on: ubuntu-latest
+        name: Build backend
+        needs: [compile , unit-tests]
+        steps:
+        - name: 
+          uses: actions/checkout@v4
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+
+        - name: Make mvnw executable
+          run: |
+            cd src 
+            chmod +x ./mvnw
+
+        - name: Build project
+          run: |
+            cd src
+            ./mvnw clean compile
+
+    build-image:
+        name: Build Docker image
+        runs-on: ubuntu-latest
+        needs: [build]
+        steps:
+        - name: 
+          uses: actions/checkout@v4
+        
+        - name: Set up JDK 17
+          uses: actions/setup-java@v4
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+        - name: Make mvnw executable
+          run: |
+            cd src 
+            chmod +x ./mvnw
+
+       # - name: Extract porject version
+        #  id: extract_version
+        #  run: |
+        #    cd api
+        #    echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+        
+        #- name: Login to DockerHub
+         # uses: docker/login-action@v3
+         # with:
+          #  username: ${{secrets.DOCKER_HUB_USERNAME}}
+           # password: ${{secrets.DOCKER_HUB_ACCESS_TOKEN}}
+        
+       # - name: Build & Push to DockerHub
+        #  uses: docker/build-push-action@v5
+         # with:
+          #  context: api
+           # file: api/Dockerfile
+           # push: true
+            # platforms: linux/amd64
+            #tags: ${{ secrets.DOCKER_HUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKER_HUB_USERNAME }}/bsn-api:latest
+            #build-args: |
+             #   PROFILE=dev
+              #  APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
