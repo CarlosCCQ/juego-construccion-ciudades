@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name = "recursos")
 public class Recurso {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)

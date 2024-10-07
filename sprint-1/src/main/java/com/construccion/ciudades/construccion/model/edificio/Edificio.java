@@ -12,7 +12,7 @@ import java.util.Map;
 @Table(name = "edificios")
 public class Edificio {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)

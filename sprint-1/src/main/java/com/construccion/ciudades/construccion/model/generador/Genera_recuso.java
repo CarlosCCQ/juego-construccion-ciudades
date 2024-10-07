@@ -3,12 +3,13 @@ package com.construccion.ciudades.construccion.model.generador;
 import com.construccion.ciudades.construccion.model.ciudad.Ciudad;
 import com.construccion.ciudades.construccion.model.recurso.Recurso;
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity(name="generado")
 @Table(name = "generador")
 public class Genera_recuso {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -19,6 +20,7 @@ public class Genera_recuso {
     @JoinColumn(name = "ciudad_id", nullable = false)
     private Ciudad ciudad;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "recurso_id", nullable = false)
     private Recurso recursoGenerado;
