@@ -1,4 +1,4 @@
-Feature: Gestión de ciudades con generadores de recursos y edificios
+Feature: Crear ciudad
 
   Scenario: El jugador crea una ciudad con generadores y edificios
     Given el jugador crea una ciudad llamada "Ciudad Lima"
