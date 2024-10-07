@@ -5,6 +5,7 @@ import com.construccion.ciudades.construccion.model.generador.Genera_recuso;
 import com.construccion.ciudades.construccion.model.recurso.Recurso;
 import jakarta.persistence.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
