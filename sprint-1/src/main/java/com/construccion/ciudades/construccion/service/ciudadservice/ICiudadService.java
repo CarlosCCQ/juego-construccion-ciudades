@@ -1,6 +1,6 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service;
+package com.construccion.ciudades.construccion.service.ciudadservice;
 
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.CiudadDto;
+import com.construccion.ciudades.construccion.dto.CiudadDto;
 
 import java.util.List;
 

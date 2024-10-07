@@ -1,11 +1,11 @@
-package com.juegoconstruccion.juego.construccion.ciudades.model;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model;
 
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Edificio;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Edificio;
 
 @Entity(name = "ciudad")
 @Table(name = "ciudades")

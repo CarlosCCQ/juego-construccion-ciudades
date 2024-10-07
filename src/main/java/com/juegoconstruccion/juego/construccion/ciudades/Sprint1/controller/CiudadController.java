@@ -1,7 +1,7 @@
-package com.juegoconstruccion.juego.construccion.ciudades.controller;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.controller;
 
-import com.juegoconstruccion.juego.construccion.ciudades.dto.CiudadDto;
-import com.juegoconstruccion.juego.construccion.ciudades.service.CiudadService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.CiudadDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.CiudadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service;
+package com.construccion.ciudades.construccion.service.generadorservice;
 
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.Genera_recursoDto;
+import com.construccion.ciudades.construccion.dto.Genera_recursoDto;
 
 import java.util.List;
 

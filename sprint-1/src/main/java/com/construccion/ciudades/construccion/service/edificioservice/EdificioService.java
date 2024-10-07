@@ -1,26 +1,24 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.edificio;
+package com.construccion.ciudades.construccion.service.edificioservice;
+
+import com.construccion.ciudades.construccion.dto.EdificioDto;
+import com.construccion.ciudades.construccion.model.ciudad.Ciudad;
+import com.construccion.ciudades.construccion.model.edificio.Edificio;
+import com.construccion.ciudades.construccion.model.edificio.Tipo_edificio;
+import com.construccion.ciudades.construccion.model.recurso.Recurso;
+import com.construccion.ciudades.construccion.model.recurso.Tipo_recurso;
+import com.construccion.ciudades.construccion.repository.CiudadRepository;
+import com.construccion.ciudades.construccion.repository.EdificioRepository;
+import com.construccion.ciudades.construccion.repository.RecursoRepository;
+import com.construccion.ciudades.construccion.service.recursoservice.RecursoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Ciudad;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Edificio;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Tipo_edificio;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.CiudadRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.EdificioRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.RecursoRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.RecursoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.EdificioDto;
-
 @Service
 public class EdificioService implements IEdificioService{
-
     @Autowired
     private EdificioRepository edificioRepository;
 
@@ -141,4 +139,3 @@ public class EdificioService implements IEdificioService{
         );
     }
 }
-

@@ -1,15 +1,15 @@
-package com.juegoconstruccion.juego.construccion.ciudades.gamescontroller;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.gamescontroller;
 
-import com.juegoconstruccion.juego.construccion.ciudades.dto.CiudadDto;
-import com.juegoconstruccion.juego.construccion.ciudades.dto.EdificioDto;
-import com.juegoconstruccion.juego.construccion.ciudades.dto.Genera_recursoDto;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_generador_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Tipo_edificio;
-import com.juegoconstruccion.juego.construccion.ciudades.service.CiudadService;
-import com.juegoconstruccion.juego.construccion.ciudades.service.Genera_recursoService;
-import com.juegoconstruccion.juego.construccion.ciudades.service.RecursoService;
-import com.juegoconstruccion.juego.construccion.ciudades.service.edificio.EdificioService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.CiudadDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.EdificioDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.Genera_recursoDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_generador_recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Tipo_edificio;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.CiudadService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.Genera_recursoService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.RecursoService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.edificio.EdificioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

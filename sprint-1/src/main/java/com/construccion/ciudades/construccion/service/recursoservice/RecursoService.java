@@ -1,11 +1,11 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service;
+package com.construccion.ciudades.construccion.service.recursoservice;
 
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Ciudad;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.CiudadRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.RecursoRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.RecursoDto;
+import com.construccion.ciudades.construccion.dto.RecursoDto;
+import com.construccion.ciudades.construccion.model.ciudad.Ciudad;
+import com.construccion.ciudades.construccion.model.recurso.Recurso;
+import com.construccion.ciudades.construccion.model.recurso.Tipo_recurso;
+import com.construccion.ciudades.construccion.repository.CiudadRepository;
+import com.construccion.ciudades.construccion.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

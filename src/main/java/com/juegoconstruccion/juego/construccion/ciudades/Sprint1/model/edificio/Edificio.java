@@ -1,13 +1,12 @@
-package com.juegoconstruccion.juego.construccion.ciudades.model.edificio;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio;
 
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Ciudad;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
 import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Map;
-
-import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
 
 @Entity(name = "edificio")
 @Table(name = "edificios")

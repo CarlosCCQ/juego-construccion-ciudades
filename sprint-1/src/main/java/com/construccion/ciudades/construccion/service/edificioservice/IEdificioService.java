@@ -1,10 +1,10 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.edificio;
+package com.construccion.ciudades.construccion.service.edificioservice;
+
+import com.construccion.ciudades.construccion.dto.EdificioDto;
+import com.construccion.ciudades.construccion.model.recurso.Tipo_recurso;
 
 import java.util.List;
 import java.util.Map;
-
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.EdificioDto;
 
 public interface IEdificioService {
     List<EdificioDto> obtenerTodosLosEdificios();

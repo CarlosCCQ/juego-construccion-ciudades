@@ -1,9 +1,9 @@
-package com.juegoconstruccion.juego.construccion.ciudades.dto;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto;
 
 import java.util.Map;
 
-import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
-import com.juegoconstruccion.juego.construccion.ciudades.model.edificio.Tipo_edificio;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Tipo_edificio;
 
 public class EdificioDto {
     private Long id;

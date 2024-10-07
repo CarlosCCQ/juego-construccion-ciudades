@@ -1,7 +1,7 @@
-package com.juegoconstruccion.juego.construccion.ciudades.repository;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository;
 
-import com.juegoconstruccion.juego.construccion.ciudades.model.Ciudad;
-import com.juegoconstruccion.juego.construccion.ciudades.model.Genera_recuso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Ciudad;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Genera_recuso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

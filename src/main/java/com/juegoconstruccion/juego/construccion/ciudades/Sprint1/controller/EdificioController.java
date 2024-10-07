@@ -1,4 +1,4 @@
-package com.juegoconstruccion.juego.construccion.ciudades.controller;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.controller;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.juegoconstruccion.juego.construccion.ciudades.dto.EdificioDto;
-import com.juegoconstruccion.juego.construccion.ciudades.service.edificio.IEdificioService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.EdificioDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.edificio.IEdificioService;
 
 import java.util.List;
 

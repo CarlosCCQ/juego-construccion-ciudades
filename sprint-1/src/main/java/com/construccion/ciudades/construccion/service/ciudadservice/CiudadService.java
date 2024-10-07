@@ -1,17 +1,20 @@
-package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service;
+package com.construccion.ciudades.construccion.service.ciudadservice;
 
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.*;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.edificio.Edificio;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.CiudadRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.EdificioRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.GeneraRecursoRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.repository.RecursoRepository;
-import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.CiudadDto;
-import com.juegoconstruccion.juego.construccion.ciudades.model.*;
-import org.springframework.transaction.annotation.Transactional;
+import com.construccion.ciudades.construccion.dto.CiudadDto;
+import com.construccion.ciudades.construccion.model.ciudad.Ciudad;
+import com.construccion.ciudades.construccion.model.edificio.Edificio;
+import com.construccion.ciudades.construccion.model.generador.Genera_recuso;
+import com.construccion.ciudades.construccion.model.generador.Tipo_generador_recurso;
+import com.construccion.ciudades.construccion.model.recurso.Recurso;
+import com.construccion.ciudades.construccion.model.recurso.Tipo_recurso;
+import com.construccion.ciudades.construccion.repository.CiudadRepository;
+import com.construccion.ciudades.construccion.repository.EdificioRepository;
+import com.construccion.ciudades.construccion.repository.GeneraRecursoRepository;
+import com.construccion.ciudades.construccion.repository.RecursoRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CiudadService implements ICiudadService{
-
     @Autowired
     private CiudadRepository ciudadRepository;
 

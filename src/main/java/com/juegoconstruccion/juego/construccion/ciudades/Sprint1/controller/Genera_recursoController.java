@@ -1,7 +1,7 @@
-package com.juegoconstruccion.juego.construccion.ciudades.controller;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.controller;
 
-import com.juegoconstruccion.juego.construccion.ciudades.dto.Genera_recursoDto;
-import com.juegoconstruccion.juego.construccion.ciudades.service.Genera_recursoService;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto.Genera_recursoDto;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.service.Genera_recursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.juegoconstruccion.juego.construccion.ciudades;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1;
 
-import com.juegoconstruccion.juego.construccion.ciudades.gamescontroller.MainGameController;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.gamescontroller.MainGameController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

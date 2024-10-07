@@ -1,6 +1,6 @@
-package com.juegoconstruccion.juego.construccion.ciudades.dto;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto;
 
-import com.juegoconstruccion.juego.construccion.ciudades.model.Tipo_recurso;
+import com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model.Tipo_recurso;
 
 public class RecursoDto {
     private Long id;

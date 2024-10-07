@@ -1,4 +1,4 @@
-package com.juegoconstruccion.juego.construccion.ciudades.model;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.model;
 
 import jakarta.persistence.*;
 

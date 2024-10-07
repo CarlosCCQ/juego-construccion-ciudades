@@ -1,4 +1,4 @@
-package com.juegoconstruccion.juego.construccion.ciudades.dto;
+package com.juegoconstruccion.juego.construccion.ciudades.Sprint1.dto;
 
 import java.util.List;
 
