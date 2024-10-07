@@ -5,7 +5,6 @@ import com.construccion.ciudades.construccion.model.generador.Genera_recuso;
 import com.construccion.ciudades.construccion.model.recurso.Recurso;
 import jakarta.persistence.*;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @Table(name = "ciudades")
 public class Ciudad {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
