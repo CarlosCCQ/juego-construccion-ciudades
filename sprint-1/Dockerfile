@@ -9,7 +9,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 
 # Compilar y empaquetar la aplicación
-RUN mvn clean package -DskipTests
+RUN mvn clean package
 
 # Runtime stage
 FROM amazoncorretto:17
