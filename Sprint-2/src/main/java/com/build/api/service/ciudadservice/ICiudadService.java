@@ -14,4 +14,5 @@ public interface ICiudadService {
     void agregarRecursoAlaCiudad(Long ciudadId, Long recursoId);
     void agregarGeneradorAlaCiudad(Long ciudadId, Long generaRecursoId);
     void agregarEdificioAlaCiudad(Long ciudadId, Long edificioId);
+    void eliminarTodasLasCiudades();
 }

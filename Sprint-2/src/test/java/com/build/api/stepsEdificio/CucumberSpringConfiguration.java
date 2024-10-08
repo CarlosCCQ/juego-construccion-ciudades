@@ -1,8 +1,11 @@
-package com.construccion.ciudades.construccion;
+package com.build.api.stepsEdificio;
+
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 @CucumberContextConfiguration
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
+@ActiveProfiles("test")
 public class CucumberSpringConfiguration {
 }

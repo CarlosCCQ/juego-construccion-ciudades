@@ -57,8 +57,15 @@ public class RecursoService implements IRecursoService{
 
     @Override
     public RecursoDto crearRecurso(RecursoDto recursoDto) {
+        if (recursoDto.getCiudadId() == null) {
+            throw new IllegalArgumentException("El ID de la ciudad no debe ser nulo");
+        }
         Ciudad ciudad = ciudadRepository.findById(recursoDto.getCiudadId())
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
+
+        if (recursoDto.getCantidad() <= 0) {
+            throw new IllegalArgumentException("La cantidad del recurso debe ser mayor que cero.");
+        }
 
         Recurso recurso = new Recurso();
         recurso.setTipoRecursos(recursoDto.getTipoRecursos());

@@ -72,6 +72,11 @@ public class EdificioService implements IEdificioService{
         edificio.setCiudad(ciudad);
 
         restarRecursosDeLaCiudad(ciudad, costo);
+        Edificio savedEdificio = edificioRepository.save(edificio);
+
+        if (savedEdificio == null || savedEdificio.getId() == null) {
+            throw new RuntimeException("Error al crear el edificio");
+        }
 
         return convertirAEdificioDto(edificioRepository.save(edificio));
     }

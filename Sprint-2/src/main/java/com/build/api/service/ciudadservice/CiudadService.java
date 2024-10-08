@@ -75,11 +75,10 @@ public class CiudadService implements ICiudadService{
         ciudad = ciudadRepository.save(ciudad);
 
         for (Tipo_recurso tipo : Tipo_recurso.values()) {
-            Recurso recurso = new Recurso(tipo, 10, ciudad);
+            Recurso recurso = new Recurso(tipo, 100, ciudad);
             recursoRepository.save(recurso);
         }
-
-        ciudadRepository.save(ciudad);
+        asignarGeneradorDeRecursos(ciudad);
         return convertirACiudadDto(ciudad);
     }
 
@@ -209,5 +208,9 @@ public class CiudadService implements ICiudadService{
         Ciudad ciudad = ciudadRepository.findByNombre(nombreCiudad).stream().findFirst().orElseThrow(()-> new RuntimeException("Ciudad no encontrada"));
 
         return convertirACiudadDto(ciudad);
+    }
+    @Override
+    public void eliminarTodasLasCiudades() {
+        ciudadRepository.deleteAll();
     }
 }
