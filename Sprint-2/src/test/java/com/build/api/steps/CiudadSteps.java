@@ -34,12 +34,12 @@ public class CiudadSteps {
     private List<Edificio> edificios = new ArrayList<>();
     private List<Genera_recursoDto> generadores = new ArrayList<>();
 
-    // Método para convertir CiudadDto a Ciudad
+
     private Ciudad convertirCiudadDtoACiudad(CiudadDto ciudadDto) {
         Ciudad ciudad = new Ciudad();
         ciudad.setId(ciudadDto.getId());
         ciudad.setNombre(ciudadDto.getNombre());
-        // No olvides inicializar otras propiedades si son necesarias
+
         return ciudad;
     }
 
@@ -53,28 +53,28 @@ public class CiudadSteps {
 
     @When("el jugador añade generadores de recursos y edificios a la ciudad")
     public void elJugadorAnadeGeneradoresDeRecursosYEdificiosALaCiudad() {
-        // Asignar edificios
+
         Edificio edificio = new Edificio();
         edificio.setNombre("Edificio Principal");
-        edificio.setTipoEdificio(Tipo_edificio.CLASE_BAJA); // Ejemplo de tipo de edificio
-        edificio.setCiudad(convertirCiudadDtoACiudad(ciudadDto)); // Convertimos CiudadDto a Ciudad
+        edificio.setTipoEdificio(Tipo_edificio.CLASE_BAJA);
+        edificio.setCiudad(convertirCiudadDtoACiudad(ciudadDto));
         edificios.add(edificio);
 
-        // Asignar generadores de recursos
+
         Genera_recursoDto generador = new Genera_recursoDto();
         generador.setTipoGeneradorRecurso(Tipo_generador_recurso.MINAS);
-        generador.setCiudadId(ciudadDto.getId()); // Asignamos el ID de la ciudad
+        generador.setCiudadId(ciudadDto.getId());
         generador.setTipoRecursoGenerado(Tipo_recurso.ORO);
         generadores.add(generador);
 
-        // Simular la creación de generadores en la ciudad
+
         generaRecursoService.crearGenerador(generador);
         System.out.println("Generadores y edificios añadidos a la ciudad.");
     }
 
     @Then("los generadores de recursos producen recursos")
     public void losGeneradoresDeRecursosProducenRecursos() {
-        // Aquí verificamos que los generadores estén funcionando
+
         assertFalse(generadores.isEmpty(), "La ciudad debe tener generadores de recursos.");
         System.out.println("Los generadores están produciendo recursos.");
     }
