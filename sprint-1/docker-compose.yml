@@ -3,7 +3,7 @@ services:
     container_name: postgres-sql
     image: postgres
     env_file:
-      - src/.env  # Environment variables for Postgres configuration
+      - .env  # Environment variables for Postgres configuration
     ports:
       - "1234:5432"  # Expose Postgres on port 1234
     volumes:
