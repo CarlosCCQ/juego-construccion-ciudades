@@ -14,4 +14,5 @@ public interface IEdificioService {
     EdificioDto actualizarEdificio(Long id, EdificioDto edificioDto);
     void eliminarEdificio(Long id);
     boolean verificarRecursosParaConstruir(Long ciudadId, Map<Tipo_recurso, Integer> costo);
+    boolean mejorarEdificio(Long edificioId);
 }
