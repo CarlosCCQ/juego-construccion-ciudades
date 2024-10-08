@@ -13,4 +13,6 @@ import java.util.List;
 public interface RecursoRepository extends JpaRepository<Recurso, Long> {
     List<Recurso> findByTipoRecursosAndCiudad(Tipo_recurso tipoRecursos, Ciudad ciudad);
     List<Recurso> findByTipoRecursos(Tipo_recurso tipoRecursos);
+
+  List<Recurso> findByCiudad(Ciudad ciudad);
 }
