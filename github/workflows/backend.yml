@@ -7,7 +7,7 @@ on:
       - develop
       - main
     paths:
-      - 'docker-compose.yml'
+      - 'sprint-1/docker-compose.yml'
       - .github/workflows/backend.yml
 
 jobs:
@@ -26,10 +26,14 @@ jobs:
           cache: maven
 
       - name: Make mvnw executable
-        run:  chmod +x ./mvnw
+        run:  |
+          cd sprint-1
+          chmod +x ./mvnw
 
       - name: Compile project
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -45,10 +49,14 @@ jobs:
           distribution: 'temurin'
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
 
       - name: Running unit Tests
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
 
   build:
     runs-on: ubuntu-latest
@@ -66,10 +74,14 @@ jobs:
           cache: maven
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
 
       - name: Build project
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
 
   build-image:
     name: Build Docker image
@@ -85,4 +97,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: |
+          cd sprint-1
+          chmod +x ./mvnw
