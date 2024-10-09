@@ -35,6 +35,8 @@ public class Ciudad {
     @OneToMany(mappedBy = "ciudad", fetch = FetchType.EAGER)
     private List<Edificio> edificios = new ArrayList<>();
 
+    private int recursosIniciales;
+
     @Column(name = "nivel", nullable = false)
     private int nivel = 1;
 
@@ -56,7 +58,7 @@ public class Ciudad {
         this.edificios = edificios;
     }
 
-    public void addRecurso(Tipo_recurso tipo, int cantidad) {
+/*    public void addRecurso(Tipo_recurso tipo, int cantidad) {
         Recurso recurso = recursos.stream()
                 .filter(r -> r.getTipoRecursos() == tipo)
                 .findFirst()
@@ -84,5 +86,5 @@ public class Ciudad {
             }
         }
         return true;
-    }
+    }*/
 }

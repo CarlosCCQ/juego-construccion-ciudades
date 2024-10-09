@@ -26,21 +26,20 @@ public class Genera_recuso {
     @JoinColumn(name = "ciudad_id", nullable = false)
     private Ciudad ciudad;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "recurso_id", nullable = false)
     private Recurso recursoGenerado;
 
     @Column(nullable = false)
-    private int capacidadGeneracion;
+    private int cantidadGenerada;
 
     public Genera_recuso() {
     }
 
-    public Genera_recuso(Tipo_generador_recurso tipoGeneradorRecurso, Ciudad ciudad, Recurso recursoGenerado, int capacidadGeneracion) {
+    public Genera_recuso(Tipo_generador_recurso tipoGeneradorRecurso, Ciudad ciudad, Recurso recursoGenerado, int cantidadGenerada) {
         this.tipoGeneradorRecurso = tipoGeneradorRecurso;
         this.ciudad = ciudad;
         this.recursoGenerado = recursoGenerado;
-        this.capacidadGeneracion = capacidadGeneracion;
+        this.cantidadGenerada = cantidadGenerada;
     }
 }

@@ -1,35 +1,51 @@
 package com.build.api.service.generadorservice;
 
+import com.build.api.dto.CiudadDto;
 import com.build.api.dto.Genera_recursoDto;
 import com.build.api.model.ciudad.Ciudad;
 import com.build.api.model.generador.Genera_recuso;
+import com.build.api.model.generador.Tipo_generador_recurso;
 import com.build.api.model.recurso.Recurso;
+import com.build.api.model.recurso.Tipo_recurso;
 import com.build.api.repository.CiudadRepository;
 import com.build.api.repository.GeneraRecursoRepository;
 import com.build.api.repository.RecursoRepository;
+import com.build.api.service.ciudadservice.CiudadService;
 import com.build.api.service.recursoservice.RecursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
-public class Genera_recursoService implements IGenera_recursoService{
+public class Genera_recursoService implements IGenera_recursoService {
     private final GeneraRecursoRepository generaRecursoRepository;
     private final CiudadRepository ciudadRepository;
     private final RecursoRepository recursoRepository;
+    private final ScheduledExecutorService scheduler;
     private final RecursoService recursoService;
+    private final CiudadService ciudadService;
+    private final Genera_recursoService generaRecursoService;
 
     @Autowired
     public Genera_recursoService(GeneraRecursoRepository generaRecursoRepository,
                                  CiudadRepository ciudadRepository,
-                                 RecursoRepository recursoRepository, RecursoService recursoService) {
+                                 RecursoRepository recursoRepository,
+                                 ScheduledExecutorService scheduler,
+                                 RecursoService recursoService,
+                                 CiudadService ciudadService,
+                                 Genera_recursoService generaRecursoService) {
         this.generaRecursoRepository = generaRecursoRepository;
         this.ciudadRepository = ciudadRepository;
         this.recursoRepository = recursoRepository;
+        this.scheduler = scheduler;
         this.recursoService = recursoService;
+        this.ciudadService = ciudadService;
+        this.generaRecursoService = generaRecursoService;
     }
 
     @Override
@@ -48,21 +64,44 @@ public class Genera_recursoService implements IGenera_recursoService{
     }
 
     @Override
-    public Genera_recursoDto crearGenerador(Genera_recursoDto generaRecursoDto) {
-        Ciudad ciudad = ciudadRepository.findById(generaRecursoDto.getCiudadId())
-                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
+    public Genera_recursoDto crearGenerador(Ciudad ciudad, Tipo_generador_recurso tipoGenerador, Tipo_recurso tipoRecursos) {
+        Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecursos, ciudad)
+                .stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("Recurso no encontrado para ciudad"));
 
-        Recurso recurso = recursoRepository.findByTipoRecursos(generaRecursoDto.getTipoRecursoGenerado())
-                .stream().findFirst().orElseThrow(()-> new RuntimeException("Recurso no encontrado"));
+        Genera_recuso nuevoGenerador = new Genera_recuso();
+        nuevoGenerador.setTipoGeneradorRecurso(tipoGenerador);
+        nuevoGenerador.setCiudad(ciudad);
+        nuevoGenerador.setRecursoGenerado(recurso);
+        nuevoGenerador.setCantidadGenerada(generarCapacidadAleatoria());
 
-        Genera_recuso generador = new Genera_recuso();
-        generador.setTipoGeneradorRecurso(generaRecursoDto.getTipoGeneradorRecurso());
-        generador.setCiudad(ciudad);
-        generador.setRecursoGenerado(recurso);
-        generador.setCapacidadGeneracion(generaRecursoDto.getCapacidadGeneracion());
+        generaRecursoRepository.save(nuevoGenerador);
 
-        generaRecursoRepository.save(generador);
-        return convertirAGeneraRecursoDto(generador);
+        generarRecursosPeriodicamente(nuevoGenerador);
+
+        return convertirAGeneraRecursoDto(nuevoGenerador);
+    }
+
+    private void generarRecursosPeriodicamente(Genera_recuso generador) {
+        Runnable generarRecursosTask = () -> {
+            List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
+
+            for (CiudadDto ciudad : ciudades) {
+                List<Genera_recursoDto> generadores = generaRecursoService.obtenerGeneradoresPorCiudad(ciudad.getId());
+
+                for (Genera_recursoDto generadorDto : generadores) {
+                    int cantidadGenerada = new Random().nextInt(4) + 2;
+                    recursoService.aumentarRecurso(ciudad.getId(), generadorDto.getTipoRecursoGenerado(), cantidadGenerada);
+                    System.out.println("Se generaron " + cantidadGenerada + " unidades de " + generadorDto.getTipoRecursoGenerado() + " en la ciudad " + ciudad.getNombre());
+                }
+            }
+        };
+
+        scheduler.scheduleAtFixedRate(generarRecursosTask, 30, 30, TimeUnit.SECONDS);
+    }
+
+    public int generarCapacidadAleatoria() {
+        return (int) (Math.random() * 7) + 2;
     }
 
     @Override
@@ -74,12 +113,12 @@ public class Genera_recursoService implements IGenera_recursoService{
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
 
         Recurso recurso = recursoRepository.findByTipoRecursos(generaRecursoDto.getTipoRecursoGenerado())
-                .stream().findFirst().orElseThrow(()-> new RuntimeException("Recurso no encontrado"));
+                .stream().findFirst().orElseThrow(() -> new RuntimeException("Recurso no encontrado"));
 
         generador.setTipoGeneradorRecurso(generaRecursoDto.getTipoGeneradorRecurso());
         generador.setCiudad(ciudad);
         generador.setRecursoGenerado(recurso);
-        generador.setCapacidadGeneracion(generaRecursoDto.getCapacidadGeneracion());
+        generador.setCantidadGenerada(generaRecursoDto.getCantidadGenerada());
 
         generaRecursoRepository.save(generador);
         return convertirAGeneraRecursoDto(generador);
@@ -89,11 +128,13 @@ public class Genera_recursoService implements IGenera_recursoService{
     public void eliminarGenerador(Long id) {
         generaRecursoRepository.deleteById(id);
     }
+
     private Genera_recursoDto convertirAGeneraRecursoDto(Genera_recuso generador) {
         return new Genera_recursoDto(
                 generador.getTipoGeneradorRecurso(),
                 generador.getCiudad().getId(),
-                generador.getRecursoGenerado().getTipoRecursos()
+                generador.getRecursoGenerado().getTipoRecursos(),
+                generador.getCantidadGenerada()
         );
     }
 
@@ -107,13 +148,4 @@ public class Genera_recursoService implements IGenera_recursoService{
                 .map(this::convertirAGeneraRecursoDto)
                 .collect(Collectors.toList());
     }
-
-    /*public void generarRecursosAutomáticamente(Long ciudadId) {
-        List<Genera_recursoDto> generadores = obtenerGeneradoresPorCiudad(ciudadId);
-        for (Genera_recursoDto generador : generadores) {
-            Random random = new Random();
-            int cantidadGenerada = random.nextInt(6) + 2;
-            recursoService.aumentarRecurso(ciudadId, generador.getTipoRecursoGenerado(), cantidadGenerada);
-        }
-    }*/
 }

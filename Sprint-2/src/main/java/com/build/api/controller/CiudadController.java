@@ -13,12 +13,12 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @GetMapping
+    @GetMapping("/todos")
     public List<CiudadDto> obtenerTodasLasCiudades() {
         return ciudadService.obtenerTodasLasCiudades();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public CiudadDto obtenerCiudadPorId(@PathVariable Long id) {
         return ciudadService.obtenerCiudadPorId(id);
     }
@@ -28,12 +28,12 @@ public class CiudadController {
         return ciudadService.crearCiudad(ciudadDto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CiudadDto actualizarCiudad(@PathVariable Long id, @RequestBody CiudadDto ciudadDto) {
         return ciudadService.actualizarCiudad(id, ciudadDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public void eliminarCiudad(@PathVariable Long id) {
         ciudadService.eliminarCiudad(id);
     }
@@ -43,10 +43,10 @@ public class CiudadController {
         ciudadService.agregarRecursoAlaCiudad(ciudadId, recursoId);
     }
 
-    @PostMapping("/{ciudadId}/generadores/{generaRecursoId}")
+    /*@PostMapping("/{ciudadId}/generadores/{generaRecursoId}")
     public void agregarGeneradorAlaCiudad(@PathVariable Long ciudadId, @PathVariable Long generaRecursoId) {
         ciudadService.agregarGeneradorAlaCiudad(ciudadId, generaRecursoId);
-    }
+    }*/
 
     @PostMapping("/{ciudadId}/edificios/{edificioId}")
     public void agregarEdificioAlaCiudad(@PathVariable Long ciudadId, @PathVariable Long edificioId) {

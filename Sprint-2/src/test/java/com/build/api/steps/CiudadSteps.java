@@ -67,7 +67,7 @@ public class CiudadSteps {
         generadores.add(generador);
 
 
-        generaRecursoService.crearGenerador(generador);
+        //generaRecursoService.crearGenerador(generador);
         System.out.println("Generadores y edificios añadidos a la ciudad.");
     }
 

@@ -125,7 +125,7 @@ public class RecursoService implements IRecursoService{
         return recurso != null ? convertirARecursoDto(recurso) : null;
     }
 
-    public void generarRecursosAutomáticamente(Long ciudadId) {
+    /*public void generarRecursosAutomáticamente(Long ciudadId) {
         Ciudad ciudad = ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
 
@@ -134,5 +134,5 @@ public class RecursoService implements IRecursoService{
             int cantidadGenerada = (int) (Math.random() * 7) + 2; // Genera entre 2 y 8
             aumentarRecurso(ciudadId, generador.getTipoRecursoGenerado(), cantidadGenerada);
         }
-    }
+    }*/
 }

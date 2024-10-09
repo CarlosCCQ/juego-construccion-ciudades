@@ -11,6 +11,7 @@ import com.build.api.repository.CiudadRepository;
 import com.build.api.repository.EdificioRepository;
 import com.build.api.repository.GeneraRecursoRepository;
 import com.build.api.repository.RecursoRepository;
+import com.build.api.service.generadorservice.Genera_recursoService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
+/*import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeUnit;*/
 import java.util.stream.Collectors;
 
 @Service
-public class CiudadService implements ICiudadService{
+public class CiudadService implements ICiudadService {
     @Autowired
     private CiudadRepository ciudadRepository;
 
@@ -38,7 +39,14 @@ public class CiudadService implements ICiudadService{
     @Autowired
     private EdificioRepository edificioRepository;
 
+    private final Genera_recursoService generaRecursoService;
+
     private static final int OBJETIVO_EDIFICIOS = 5;
+
+    @Autowired
+    public CiudadService(Genera_recursoService generaRecursoService) {
+        this.generaRecursoService = generaRecursoService;
+    }
 
     @Override
     @Transactional
@@ -80,7 +88,9 @@ public class CiudadService implements ICiudadService{
             Recurso recurso = new Recurso(tipo, 100, ciudad);
             recursoRepository.save(recurso);
         }
+
         asignarGeneradorDeRecursos(ciudad);
+
         return convertirACiudadDto(ciudad);
     }
 
@@ -104,16 +114,6 @@ public class CiudadService implements ICiudadService{
         Recurso recurso = recursoRepository.findById(recursoId)
                 .orElseThrow(() -> new RuntimeException("Recurso no encontrado"));
         ciudad.getRecursos().add(recurso);
-        ciudadRepository.save(ciudad);
-    }
-
-    @Override
-    public void agregarGeneradorAlaCiudad(Long ciudadId, Long generaRecursoId) {
-        Ciudad ciudad = ciudadRepository.findById(ciudadId)
-                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
-        Genera_recuso generaRecurso = generaRecursoRepository.findById(generaRecursoId)
-                .orElseThrow(() -> new RuntimeException("Generador no encontrado"));
-        ciudad.getGeneraRecusos().add(generaRecurso);
         ciudadRepository.save(ciudad);
     }
 
@@ -152,76 +152,33 @@ public class CiudadService implements ICiudadService{
     }
 
     private CiudadDto convertirACiudadDto(Ciudad ciudad) {
-        System.out.println("Convirtiendo ciudad: " + ciudad.getNombre());
-        System.out.println("Recursos: " + ciudad.getRecursos());
-        System.out.println("Generadores: " + ciudad.getGeneraRecusos());
-        System.out.println("Edificios: " + ciudad.getEdificios());
-
         return new CiudadDto(
                 ciudad.getId(),
                 ciudad.getNombre(),
                 ciudad.getRecursos() != null ? ciudad.getRecursos().stream().map(Recurso::getId).collect(Collectors.toList()) : new ArrayList<>(),
                 ciudad.getGeneraRecusos() != null ? ciudad.getGeneraRecusos().stream().map(Genera_recuso::getId).collect(Collectors.toList()) : new ArrayList<>(),
-                ciudad.getEdificios() != null ? ciudad.getEdificios().stream().map(Edificio::getId).collect(Collectors.toList()) : new ArrayList<>()
+                ciudad.getEdificios() != null ? ciudad.getEdificios().stream().map(Edificio::getId).collect(Collectors.toList()) : new ArrayList<>(),
+                ciudad.getRecursosIniciales()
         );
     }
 
-
-    private void asignarGeneradorDeRecursos(Ciudad ciudad){
-        crearGenerador(ciudad, Tipo_generador_recurso.CANTERAS, Tipo_recurso.PIEDRA);
-        crearGenerador(ciudad, Tipo_generador_recurso.MINAS, Tipo_recurso.ORO);
-        crearGenerador(ciudad, Tipo_generador_recurso.RIO, Tipo_recurso.AGUA);
-    }
-    private void crearGenerador(Ciudad ciudad, Tipo_generador_recurso tipoGenerador, Tipo_recurso tipoRecursos) {
-        Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecursos, ciudad).stream().findFirst().orElseThrow(()-> new RuntimeException("Recurso no encontrado para ciudad"));
-
-        Genera_recuso generador = new Genera_recuso();
-        generador.setTipoGeneradorRecurso(tipoGenerador);
-        generador.setCiudad(ciudad);
-        generador.setRecursoGenerado(recurso);
-        generador.setCapacidadGeneracion(generarCapacidadAleatoria());
-        generaRecursoRepository.save(generador);
-
-        generarRecursosPeriodicamente(generador);
+    private void asignarGeneradorDeRecursos(Ciudad ciudad) {
+        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.CANTERAS, Tipo_recurso.PIEDRA);
+        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.MINAS, Tipo_recurso.ORO);
+        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.RIO, Tipo_recurso.AGUA);
     }
 
-    private int generarCapacidadAleatoria() {
-        return (int) (Math.random() * 7) + 2;
-    }
-
-    private void generarRecursosPeriodicamente(Genera_recuso generador) {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            Recurso recurso = generador.getRecursoGenerado();
-            recurso.setCantidad(recurso.getCantidad() + generador.getCapacidadGeneracion());
-            recursoRepository.save(recurso);
-
-            System.out.println("Generados " + generador.getCapacidadGeneracion() + " unidades de " + recurso.getTipoRecursos() + " en la ciudad " + generador.getCiudad().getNombre());
-        }, 0, 10, TimeUnit.SECONDS);
-    }
-
-    public Map<Tipo_recurso, Integer> obtenerRecursoDeLaCiudad(String nombreCiudad){
-        Ciudad ciudad = ciudadRepository.findByNombre(nombreCiudad).stream().findFirst().orElseThrow(()-> new RuntimeException("Ciudad no encontradad con el nombre: "+ nombreCiudad));
-
-        return ciudad.getRecursos().stream().collect(Collectors.toMap(Recurso::getTipoRecursos, Recurso:: getCantidad));
-    }
-
-    public CiudadDto obtenerCiudadPorNombre(String nombreCiudad){
-        Ciudad ciudad = ciudadRepository.findByNombre(nombreCiudad).stream().findFirst().orElseThrow(()-> new RuntimeException("Ciudad no encontrada"));
-
-        return convertirACiudadDto(ciudad);
-    }
     @Override
     public void eliminarTodasLasCiudades() {
         ciudadRepository.deleteAll();
     }
 
     @Override
-    public boolean verificarYSubirNivelCiudad(Long ciudadId, int objetivoEdificios){
+    public boolean verificarYSubirNivelCiudad(Long ciudadId, int objetivoEdificios) {
         Ciudad ciudad = ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
 
-        if (ciudad.haAlcanzadoObjetivoDeEdificios(objetivoEdificios)) { // Usar el parámetro objetivoEdificios
+        if (ciudad.haAlcanzadoObjetivoDeEdificios(objetivoEdificios)) {
             ciudad.incrementarNivel();
             otorgarRecompensa(ciudad);
             ciudadRepository.save(ciudad);
@@ -230,7 +187,16 @@ public class CiudadService implements ICiudadService{
         return false;
     }
 
-    private void otorgarRecompensa(Ciudad ciudad) {
+    @Override
+    public void otorgarRecompensa(Ciudad ciudad) {
         ciudad.getRecursos().forEach(recurso -> recurso.setCantidad(recurso.getCantidad() + 10));
+    }
+
+    public Map<Tipo_recurso, Integer> obtenerRecursoDeLaCiudad(String nombreCiudad) {
+        Ciudad ciudad = ciudadRepository.findByNombre(nombreCiudad).stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada con el nombre: " + nombreCiudad));
+
+        return ciudad.getRecursos().stream()
+                .collect(Collectors.toMap(Recurso::getTipoRecursos, Recurso::getCantidad));
     }
 }
