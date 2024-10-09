@@ -44,12 +44,15 @@ public class RecursoService implements IRecursoService{
     }
 
     public void aumentarRecurso(Long ciudadId, Tipo_recurso tipoRecurso, int cantidadAumentar) {
+        if (cantidadAumentar <= 0) {
+            throw new IllegalArgumentException("La cantidad a aumentar debe ser mayor que cero.");
+        }
+
         Ciudad ciudad = ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
 
         Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecurso, ciudad)
                 .stream().findFirst().orElseGet(() -> {
-
                     Recurso nuevoRecurso = new Recurso();
                     nuevoRecurso.setTipoRecursos(tipoRecurso);
                     nuevoRecurso.setCiudad(ciudad);
@@ -58,7 +61,6 @@ public class RecursoService implements IRecursoService{
                 });
 
         recurso.setCantidad(recurso.getCantidad() + cantidadAumentar);
-
         recursoRepository.save(recurso);
 
         System.out.println("Se han añadido " + cantidadAumentar + " unidades de " + tipoRecurso + " a la ciudad " + ciudad.getNombre());
@@ -109,13 +111,13 @@ public class RecursoService implements IRecursoService{
         );
     }
 
-    public boolean verificarSuficientesRecursos(Long ciudadId, Tipo_recurso tipoRecurso, int cantidadRequerida) {
+    /*public boolean verificarSuficientesRecursos(Long ciudadId, Tipo_recurso tipoRecurso, int cantidadRequerida) {
         Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecurso, ciudadRepository.findById(ciudadId)
                         .orElseThrow(() -> new RuntimeException("Ciudad no encontrada")))
                 .stream().findFirst().orElse(null);
 
         return recurso != null && recurso.getCantidad() >= cantidadRequerida;
-    }
+    }*/
 
     public RecursoDto obtenerRecursoPorTipoYCiudad(Tipo_recurso tipoRecurso, Long ciudadId) {
         Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecurso, ciudadRepository.findById(ciudadId)

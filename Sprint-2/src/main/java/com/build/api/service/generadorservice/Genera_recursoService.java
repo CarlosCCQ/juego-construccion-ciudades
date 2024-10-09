@@ -28,24 +28,24 @@ public class Genera_recursoService implements IGenera_recursoService {
     private final RecursoRepository recursoRepository;
     private final ScheduledExecutorService scheduler;
     private final RecursoService recursoService;
-    private final CiudadService ciudadService;
-    private final Genera_recursoService generaRecursoService;
+    private CiudadService ciudadService;
+    //private final Genera_recursoService generaRecursoService;
 
     @Autowired
     public Genera_recursoService(GeneraRecursoRepository generaRecursoRepository,
                                  CiudadRepository ciudadRepository,
                                  RecursoRepository recursoRepository,
                                  ScheduledExecutorService scheduler,
-                                 RecursoService recursoService,
-                                 CiudadService ciudadService,
-                                 Genera_recursoService generaRecursoService) {
+                                 RecursoService recursoService
+                                 //CiudadService ciudadService
+                                 /*Genera_recursoService generaRecursoService*/) {
         this.generaRecursoRepository = generaRecursoRepository;
         this.ciudadRepository = ciudadRepository;
         this.recursoRepository = recursoRepository;
         this.scheduler = scheduler;
         this.recursoService = recursoService;
-        this.ciudadService = ciudadService;
-        this.generaRecursoService = generaRecursoService;
+        //this.ciudadService = ciudadService;
+        //this.generaRecursoService = generaRecursoService;
     }
 
     @Override
@@ -82,26 +82,22 @@ public class Genera_recursoService implements IGenera_recursoService {
         return convertirAGeneraRecursoDto(nuevoGenerador);
     }
 
-    private void generarRecursosPeriodicamente(Genera_recuso generador) {
+    public void generarRecursosPeriodicamente(Genera_recuso generador) {
         Runnable generarRecursosTask = () -> {
-            List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
+            Ciudad ciudad = generador.getCiudad();
+            int cantidadGenerada = generarCapacidadAleatoria();
 
-            for (CiudadDto ciudad : ciudades) {
-                List<Genera_recursoDto> generadores = generaRecursoService.obtenerGeneradoresPorCiudad(ciudad.getId());
+            recursoService.aumentarRecurso(ciudad.getId(), generador.getRecursoGenerado().getTipoRecursos(), cantidadGenerada);
 
-                for (Genera_recursoDto generadorDto : generadores) {
-                    int cantidadGenerada = new Random().nextInt(4) + 2;
-                    recursoService.aumentarRecurso(ciudad.getId(), generadorDto.getTipoRecursoGenerado(), cantidadGenerada);
-                    System.out.println("Se generaron " + cantidadGenerada + " unidades de " + generadorDto.getTipoRecursoGenerado() + " en la ciudad " + ciudad.getNombre());
-                }
-            }
+            System.out.println("Se generaron " + cantidadGenerada + " unidades de " + generador.getRecursoGenerado().getTipoRecursos()
+                    + " en la ciudad " + ciudad.getNombre());
         };
 
-        scheduler.scheduleAtFixedRate(generarRecursosTask, 30, 30, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(generarRecursosTask, 15, 5, TimeUnit.SECONDS);
     }
 
     public int generarCapacidadAleatoria() {
-        return (int) (Math.random() * 7) + 2;
+        return (int) (Math.random() * 50) + 25;
     }
 
     @Override
@@ -147,5 +143,10 @@ public class Genera_recursoService implements IGenera_recursoService {
         return generadores.stream()
                 .map(this::convertirAGeneraRecursoDto)
                 .collect(Collectors.toList());
+    }
+
+    public boolean existeGeneradorPorTipoYCiudad(Ciudad ciudad, Tipo_generador_recurso tipoGenerador) {
+        List<Genera_recuso> generadores = generaRecursoRepository.findByCiudad(ciudad);
+        return generadores.stream().anyMatch(g -> g.getTipoGeneradorRecurso().equals(tipoGenerador));
     }
 }

@@ -39,14 +39,15 @@ public class CiudadService implements ICiudadService {
     @Autowired
     private EdificioRepository edificioRepository;
 
-    private final Genera_recursoService generaRecursoService;
+    @Autowired
+    private Genera_recursoService generaRecursoService;
 
     private static final int OBJETIVO_EDIFICIOS = 5;
 
-    @Autowired
+    /*@Autowired
     public CiudadService(Genera_recursoService generaRecursoService) {
         this.generaRecursoService = generaRecursoService;
-    }
+    }*/
 
     @Override
     @Transactional
@@ -162,10 +163,18 @@ public class CiudadService implements ICiudadService {
         );
     }
 
-    private void asignarGeneradorDeRecursos(Ciudad ciudad) {
-        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.CANTERAS, Tipo_recurso.PIEDRA);
-        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.MINAS, Tipo_recurso.ORO);
-        generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.RIO, Tipo_recurso.AGUA);
+    public void asignarGeneradorDeRecursos(Ciudad ciudad) {
+        if (!generaRecursoService.existeGeneradorPorTipoYCiudad(ciudad, Tipo_generador_recurso.CANTERAS)) {
+            generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.CANTERAS, Tipo_recurso.PIEDRA);
+        }
+
+        if (!generaRecursoService.existeGeneradorPorTipoYCiudad(ciudad, Tipo_generador_recurso.MINAS)) {
+            generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.MINAS, Tipo_recurso.ORO);
+        }
+
+        if (!generaRecursoService.existeGeneradorPorTipoYCiudad(ciudad, Tipo_generador_recurso.RIO)) {
+            generaRecursoService.crearGenerador(ciudad, Tipo_generador_recurso.RIO, Tipo_recurso.AGUA);
+        }
     }
 
     @Override
