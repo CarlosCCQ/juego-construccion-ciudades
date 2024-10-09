@@ -1,6 +1,79 @@
 # Construccion de ciudades Sprint 1
+## 1. Dependencias principales
 
-## 1. Configuración inicial del tablero Kanban y el Product Backlog
+  ### 1. Spring Boot Starter Actuator
+     - **Grupo:** `org.springframework.boot`
+     - **ArtifactId:** `spring-boot-starter-actuator`
+     - **Descripción:** Esta dependencia permite monitorear y gestionar la aplicación en producción, brindando endpoints que exponen información del sistema, métricas y configuraciones.
+  
+  ### 2. Spring Boot Starter Data JPA
+     - **Grupo:** `org.springframework.boot`
+     - **ArtifactId:** `spring-boot-starter-data-jpa`
+     - **Descripción:** Proporciona integración con JPA (Java Persistence API) y herramientas para trabajar con bases de datos de manera sencilla mediante Spring Data.
+  
+  ### 3. Spring Boot Starter Web
+     - **Grupo:** `org.springframework.boot`
+     - **ArtifactId:** `spring-boot-starter-web`
+     - **Descripción:** Este módulo configura las dependencias para desarrollar aplicaciones web RESTful. Incluye Tomcat como servidor y soporte para HTTP y RESTful APIs.
+  
+  ## Dependencias de Bases de Datos
+  
+  ### 4. H2 Database
+     - **Grupo:** `com.h2database`
+     - **ArtifactId:** `h2`
+     - **Alcance:** `runtime`
+     - **Descripción:** H2 es una base de datos en memoria utilizada en este proyecto principalmente para pruebas, ofreciendo una base de datos rápida y ligera.
+  
+  ### 5. PostgreSQL Driver
+     - **Grupo:** `org.postgresql`
+     - **ArtifactId:** `postgresql`
+     - **Alcance:** `runtime`
+     - **Descripción:** Driver JDBC para PostgreSQL, necesario para conectar la aplicación a una base de datos PostgreSQL en producción o desarrollo.
+  
+  ## Dependencias de Monitoreo
+  
+  ### 6. Micrometer Registry Prometheus
+     - **Grupo:** `io.micrometer`
+     - **ArtifactId:** `micrometer-registry-prometheus`
+     - **Alcance:** `runtime`
+     - **Descripción:** Micrometer es una biblioteca para gestionar métricas, y este módulo permite integrar las métricas de la aplicación con Prometheus, un sistema de monitoreo y alerta.
+  
+  ## Dependencias de Utilidades
+  
+  ### 7. Lombok
+     - **Grupo:** `org.projectlombok`
+     - **ArtifactId:** `lombok`
+     - **Opcional:** `true`
+     - **Descripción:** Lombok facilita la escritura de código Java, generando automáticamente getters, setters, constructores y otros métodos, reduciendo el código boilerplate.
+  
+  ## Dependencias para Pruebas
+  
+  ### 8. Spring Boot Starter Test
+     - **Grupo:** `org.springframework.boot`
+     - **ArtifactId:** `spring-boot-starter-test`
+     - **Alcance:** `test`
+     - **Descripción:** Conjunto de herramientas de prueba integradas para Spring Boot, que incluye JUnit, Mockito y otras utilidades para simplificar la creación de pruebas.
+  
+  ### 9. Cucumber Java
+     - **Grupo:** `io.cucumber`
+     - **ArtifactId:** `cucumber-java`
+     - **Versión:** `7.20.0`
+     - **Descripción:** Biblioteca principal de Cucumber, utilizada para escribir pruebas de aceptación en lenguaje natural, permitiendo expresar casos de prueba en formato de historias de usuario.
+  
+  ### 10. Cucumber JUnit
+     - **Grupo:** `io.cucumber`
+     - **ArtifactId:** `cucumber-junit`
+     - **Versión:** `7.20.0`
+     - **Alcance:** `test`
+     - **Descripción:** Integra Cucumber con JUnit, facilitando la ejecución de pruebas escritas en formato Gherkin, mediante la plataforma de pruebas JUnit.
+  
+  ### 11. Cucumber Spring
+     - **Grupo:** `io.cucumber`
+     - **ArtifactId:** `cucumber-spring`
+     - **Versión:** `7.20.0`
+     - **Alcance:** `test`
+     - **Descripción:** Proporciona integración entre Cucumber y Spring, permitiendo utilizar beans de Spring en las pruebas y facilitando el manejo de contexto de aplicación durante las pruebas de aceptación.
+## 2. Configuración inicial del tablero Kanban y el Product Backlog
 
 - **Tablero Kanban**: Se creó el tablero Kanban en GitHub para gestionar y visualizar el progreso del Sprint 1. El tablero contiene las siguientes columnas:
   - **Backlog**: Todas las tareas que aún no han sido trabajadas.
@@ -15,7 +88,7 @@
     - **Gestión de Recursos.**
     - **Generadores de Recursos**
 
-## 2. Historias de usuario con criterios de aceptación en Gherkin
+## 3. Historias de usuario con criterios de aceptación en Gherkin
 
 Se escribieron las historias de usuario utilizando la sintaxis Gherkin para facilitar la definición clara de criterios de aceptación.
 
@@ -90,7 +163,7 @@ Then visualizara los generadores de recursos asignados
 En cada historia de usuario se empleo el siguiente template:
 ![Imagen del Template](src/Images/Template.png)
 
-## 3. Labels sugeridos y su uso
+## 4. Labels sugeridos y su uso
 
 Se crearon algunos labels para luego asignarlos a cada historia de usuario, segun sus características y funcionalidad
 
@@ -106,7 +179,7 @@ Se crearon algunos labels para luego asignarlos a cada historia de usuario, segu
 - **ci/cd**: Para elementos de prioridad media.
 - **technical debt**: Para marcar aquellas historias que no aportan valor visible al cliente pero deben completarse para continuar con el desarrollo.
 
-## 4. Añadir labels a las historias
+## 5. Añadir labels a las historias
 
 Procederemos a etiquetar cada historia de usuario con su label correspondiente , segun su funcionalidad y función.
 
@@ -139,7 +212,7 @@ Procederemos a etiquetar cada historia de usuario con su label correspondiente ,
 - **Label:** ```technical debt```
 - **Justificación:** bordar esta deuda técnica a tiempo evitará que se acumulen complicaciones que afecten el desarrollo continuo y el rendimiento del sistema a largo plazo.
 
-## 5. Asignación de puntos de historia
+## 6. Asignación de puntos de historia
 
 Para asignar puntos de historia a cada una de las historias de usuario del proyecto, tomaremos en cuenta la **complejidad**, el **esfuerzo** requerido y la **incertidumbre**. Utilizaré la **secuencia de Fibonacci** (1, 2, 3, 5, 8, 13, etc.) como referencia, donde:
 
@@ -171,7 +244,7 @@ Para asignar puntos de historia a cada una de las historias de usuario del proye
 - **Puntos de historia :** ```5```
 - **Justificación:** La funcionalidad de asignar generadores de recursos a una ciudad es relativamente simple en comparación con otras historias de usuario más complejas. Aunque los generadores de recursos producen materiales de manera periódica, su implementación no requiere una lógica demasiado intrincada. La mayor parte del trabajo consiste en asignar correctamente los generadores a la ciudad y mostrar visualmente su estado al jugador.
 
-## 6. Asignación de miembros a cada historia de usuario
+## 7. Asignación de miembros a cada historia de usuario
 
 Nos hemos asignado cada historia de usario de acuerdo a el conocimiento y la capacidad de cada uno, siendo asi la creacion de ramas especificas para cada entidad, en este caso **ciudad**, **recursos** y **edificios**
 
@@ -180,7 +253,7 @@ Nos hemos asignado cada historia de usario de acuerdo a el conocimiento y la cap
 - **Gestión de Recursos.** Carlos Canto
 - **Generadores de Recursos** Carlos Canto
 
-## 7. Configuración de Sprints y reacion del Spring Blacklog y
+## 8. Configuración de Sprints y reacion del Spring Blacklog y
 
 Se introduce **"Sprint1"** como el nombre del campo, eligimos **"Iteration"** como el tipo de campo. Mantenmos la duración en una semana
 
@@ -221,7 +294,7 @@ completado. Ahora, se mueve la historia ***Construcción de diferentes tipos de 
 
 ![Imagen Done3](src/Images/AllDone.png)
 
-## 8. Configuracion del Burndown Char
+## 9. Configuracion del Burndown Char
 
 ![Imagen Burndown Char ](src/Images/Statuschart1.jpeg)
 
@@ -231,7 +304,7 @@ Este grafico nos muestra la cantidad de historias de usuario que se le asigno a 
 
 Finalmente este gráfico nos muestra la cantidad de historias de usuario que se le asigno a cada miembro que no pertenecen al Sprint 1
 
-## 9. Inicio de pruebas unitarias para componentes clave
+## 10. Inicio de pruebas unitarias para componentes clave
 
 
 En este sprint, se desarrollaron pruebas unitarias utilizando **JUnit** para asegurar el correcto funcionamiento de los componentes clave del proyecto. Las pruebas se centraron en las entidades más importantes del sistema dentro de la carpeta `repository`, tales como la **Ciudad**, **Edificio**, **Generador de Recursos** y **Recurso**. Las pruebas se llevaron a cabo utilizando una base de datos en memoria **H2** y el framework de pruebas de **Spring Boot**.
