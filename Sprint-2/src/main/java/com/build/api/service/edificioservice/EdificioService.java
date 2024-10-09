@@ -39,6 +39,11 @@ public class EdificioService implements IEdificioService{
             Tipo_edificio.CLASE_BAJA, Map.of(Tipo_recurso.PIEDRA, 5, Tipo_recurso.ORO, 2, Tipo_recurso.AGUA, 1)
     );
 
+    private static final Map<Tipo_edificio, Map<Tipo_recurso, Integer>> COSTO_MEJORA = Map.of(
+            Tipo_edificio.CLASE_BAJA, Map.of(Tipo_recurso.PIEDRA, 10, Tipo_recurso.ORO, 5, Tipo_recurso.AGUA, 3),
+            Tipo_edificio.CLASE_MEDIA, Map.of(Tipo_recurso.PIEDRA, 15, Tipo_recurso.ORO, 10, Tipo_recurso.AGUA, 5)
+    );
+
     @Override
     public List<EdificioDto> obtenerTodosLosEdificios() {
         return edificioRepository.findAll().stream()
@@ -80,7 +85,36 @@ public class EdificioService implements IEdificioService{
 
         return convertirAEdificioDto(edificioRepository.save(edificio));
     }
+    @Override
+    public boolean mejorarEdificio(Long edificioId) {
+        Edificio edificio = edificioRepository.findById(edificioId)
+                .orElseThrow(() -> new RuntimeException("Edificio no encontrado"));
 
+        Tipo_edificio tipoActual = edificio.getTipoEdificio();
+        Tipo_edificio tipoMejorado;
+
+        try {
+            tipoMejorado = tipoActual.getNext();  // Obtiene el siguiente nivel
+        } catch (IllegalStateException e) {
+            throw new RuntimeException("El edificio ya está en el nivel máximo y no puede mejorarse");
+        }
+
+        Map<Tipo_recurso, Integer> costoMejora = COSTO_MEJORA.get(tipoActual);
+        if (costoMejora == null) {
+            throw new RuntimeException("No se encontró un costo de mejora para el tipo de edificio " + tipoActual);
+        }
+
+        Ciudad ciudad = edificio.getCiudad();
+        if (!verificarRecursosParaConstruir(ciudad.getId(), costoMejora)) {
+            return false; // No hay suficientes recursos
+        }
+
+        // Restar los recursos y mejorar el tipo de edificio
+        restarRecursosDeLaCiudad(ciudad, costoMejora);
+        edificio.setTipoEdificio(tipoMejorado);
+        edificioRepository.save(edificio);
+        return true;
+    }
     @Override
     public EdificioDto actualizarEdificio(Long id, EdificioDto edificioDto) {
         Edificio edificio = edificioRepository.findById(id)

@@ -38,6 +38,8 @@ public class CiudadService implements ICiudadService{
     @Autowired
     private EdificioRepository edificioRepository;
 
+    private static final int OBJETIVO_EDIFICIOS = 5;
+
     @Override
     @Transactional
     public List<CiudadDto> obtenerTodasLasCiudades() {
@@ -212,5 +214,22 @@ public class CiudadService implements ICiudadService{
     @Override
     public void eliminarTodasLasCiudades() {
         ciudadRepository.deleteAll();
+
+    @Override
+    public boolean verificarYSubirNivelCiudad(Long ciudadId, int objetivoEdificios) {
+        Ciudad ciudad = ciudadRepository.findById(ciudadId)
+                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
+
+        if (ciudad.haAlcanzadoObjetivoDeEdificios(objetivoEdificios)) { // Usar el parámetro objetivoEdificios
+            ciudad.incrementarNivel();
+            otorgarRecompensa(ciudad);
+            ciudadRepository.save(ciudad);
+            return true;
+        }
+        return false;
+    }
+
+    private void otorgarRecompensa(Ciudad ciudad) {
+        ciudad.getRecursos().forEach(recurso -> recurso.setCantidad(recurso.getCantidad() + 10));
     }
 }

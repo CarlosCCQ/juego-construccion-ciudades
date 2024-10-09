@@ -8,6 +8,7 @@ import com.build.api.dto.RecursoDto;
 import com.build.api.model.generador.Tipo_generador_recurso;
 import com.build.api.model.recurso.Tipo_recurso;
 import com.build.api.service.ciudadservice.CiudadService;
+import com.build.api.service.generadorservice.Genera_recursoService;
 import com.build.api.service.recursoservice.RecursoService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -29,7 +30,7 @@ public class RecursoSteps {
     private CiudadService ciudadService;
 
     @Autowired
-    private GeneradorService generadorService; // Servicio para gestionar generadores
+    private Genera_recursoService generadorService; // Servicio para gestionar generadores
 
     private Long ciudadId; // ID de la ciudad
     private String ciudadNombre; // Nombre de la ciudad

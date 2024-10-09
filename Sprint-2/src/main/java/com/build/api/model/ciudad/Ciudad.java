@@ -35,6 +35,17 @@ public class Ciudad {
     @OneToMany(mappedBy = "ciudad", fetch = FetchType.EAGER)
     private List<Edificio> edificios = new ArrayList<>();
 
+    @Column(name = "nivel", nullable = false)
+    private int nivel = 1;
+
+    public void incrementarNivel() {
+        this.nivel += 1;
+    }
+
+    public boolean haAlcanzadoObjetivoDeEdificios(int cantidadObjetivo) {
+        return this.edificios.size() >= cantidadObjetivo;
+    }
+
     public Ciudad() {
     }
 

@@ -1,4 +1,4 @@
-package com.build.api.stepsEdificio;
+package com.build.api.steps;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
