@@ -13,6 +13,8 @@ import com.build.api.repository.RecursoRepository;
 import com.build.api.service.ciudadservice.CiudadService;
 import com.build.api.service.recursoservice.RecursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,9 @@ public class Genera_recursoService implements IGenera_recursoService {
     private final RecursoRepository recursoRepository;
     private final ScheduledExecutorService scheduler;
     private final RecursoService recursoService;
+
+    @Autowired
+    @Lazy // Marcamos esta dependencia como Lazy para evitar el ciclo
     private CiudadService ciudadService;
     //private final Genera_recursoService generaRecursoService;
 
@@ -35,16 +40,15 @@ public class Genera_recursoService implements IGenera_recursoService {
     public Genera_recursoService(GeneraRecursoRepository generaRecursoRepository,
                                  CiudadRepository ciudadRepository,
                                  RecursoRepository recursoRepository,
-                                 ScheduledExecutorService scheduler,
-                                 RecursoService recursoService
-                                 //CiudadService ciudadService
-                                 /*Genera_recursoService generaRecursoService*/) {
+                                 @Qualifier("taskScheduler") ScheduledExecutorService scheduler,
+                                 RecursoService recursoService,
+                                 CiudadService ciudadService) {
         this.generaRecursoRepository = generaRecursoRepository;
         this.ciudadRepository = ciudadRepository;
         this.recursoRepository = recursoRepository;
         this.scheduler = scheduler;
         this.recursoService = recursoService;
-        //this.ciudadService = ciudadService;
+        this.ciudadService = ciudadService;
         //this.generaRecursoService = generaRecursoService;
     }
 
