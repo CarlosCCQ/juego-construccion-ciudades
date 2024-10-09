@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feature/sprint-1
+      - feature/sprint-2
       - develop
       - main
     paths:
