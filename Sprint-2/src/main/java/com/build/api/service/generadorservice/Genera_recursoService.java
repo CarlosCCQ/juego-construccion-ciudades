@@ -7,10 +7,12 @@ import com.build.api.model.recurso.Recurso;
 import com.build.api.repository.CiudadRepository;
 import com.build.api.repository.GeneraRecursoRepository;
 import com.build.api.repository.RecursoRepository;
+import com.build.api.service.recursoservice.RecursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,14 +20,16 @@ public class Genera_recursoService implements IGenera_recursoService{
     private final GeneraRecursoRepository generaRecursoRepository;
     private final CiudadRepository ciudadRepository;
     private final RecursoRepository recursoRepository;
+    private final RecursoService recursoService;
 
     @Autowired
     public Genera_recursoService(GeneraRecursoRepository generaRecursoRepository,
                                  CiudadRepository ciudadRepository,
-                                 RecursoRepository recursoRepository) {
+                                 RecursoRepository recursoRepository, RecursoService recursoService) {
         this.generaRecursoRepository = generaRecursoRepository;
         this.ciudadRepository = ciudadRepository;
         this.recursoRepository = recursoRepository;
+        this.recursoService = recursoService;
     }
 
     @Override
@@ -103,4 +107,13 @@ public class Genera_recursoService implements IGenera_recursoService{
                 .map(this::convertirAGeneraRecursoDto)
                 .collect(Collectors.toList());
     }
+
+    /*public void generarRecursosAutomáticamente(Long ciudadId) {
+        List<Genera_recursoDto> generadores = obtenerGeneradoresPorCiudad(ciudadId);
+        for (Genera_recursoDto generador : generadores) {
+            Random random = new Random();
+            int cantidadGenerada = random.nextInt(6) + 2;
+            recursoService.aumentarRecurso(ciudadId, generador.getTipoRecursoGenerado(), cantidadGenerada);
+        }
+    }*/
 }

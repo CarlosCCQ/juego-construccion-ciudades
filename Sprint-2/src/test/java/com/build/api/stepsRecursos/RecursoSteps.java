@@ -13,6 +13,7 @@ import com.build.api.service.recursoservice.RecursoService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,101 +25,116 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class RecursoSteps {
     @Autowired
-    private RecursoService recursoService;
-
-    @Autowired
     private CiudadService ciudadService;
 
     @Autowired
-    private Genera_recursoService generadorService; // Servicio para gestionar generadores
+    private RecursoService recursoService;
 
-    private Long ciudadId; // ID de la ciudad
-    private String ciudadNombre; // Nombre de la ciudad
+    @Autowired
+    private Genera_recursoService generaRecursoService;
+
+    private Long ciudadId;
 
     @Given("que no tengo ninguna ciudad creada")
     public void que_no_tengo_ninguna_ciudad_creada() {
-        // Lógica para asegurarse de que no hay ciudades creadas
+        // Asegurarse de que no hay ciudades en la base de datos
         List<CiudadDto> ciudades = ciudadService.obtenerTodasLasCiudades();
-        assertEquals("Debería estar vacío", 0, ciudades.size());
+        Assert.assertTrue(ciudades.isEmpty());
     }
 
     @When("creo una ciudad llamada {string}")
-    public void creo_una_ciudad_llamada(String ciudadNombre) {
-        this.ciudadNombre = ciudadNombre;
+    public void creo_una_ciudad_llamada(String nombreCiudad) {
         CiudadDto ciudadDto = new CiudadDto();
-        ciudadDto.setNombre(ciudadNombre);
-        ciudadId = ciudadService.crearCiudad(ciudadDto).getId(); // Supongamos que este método devuelve el ID de la ciudad creada
+        ciudadDto.setNombre(nombreCiudad);
+        ciudadDto.setRecursosIniciales(100); // o establece tus recursos iniciales aquí
+
+        ciudadId = ciudadService.crearCiudad(ciudadDto).getId(); // Guarda el ID de la ciudad creada
     }
 
     @Then("la ciudad {string} debe tener recursos iniciales asignados")
-    public void la_ciudad_debe_tener_recursos_iniciales_asignados(String ciudadNombre) {
-        List<RecursoDto> recursos = recursoService.obtenerRecursosPorCiudad(ciudadId);
-        // Verifica que la ciudad tenga recursos iniciales (puedes ajustar los recursos esperados según tu lógica)
-        assertEquals("La ciudad debe tener recursos iniciales", 3, recursos.size());
+    public void la_ciudad_debe_tener_recursos_iniciales_asignados(String nombreCiudad) {
+        CiudadDto ciudad = ciudadService.obtenerCiudadPorId(ciudadId);
+        Assert.assertNotNull(ciudad);
+        Assert.assertEquals(nombreCiudad, ciudad.getNombre());
+
+        // Verificar los recursos iniciales
+        List<RecursoDto> recursos = recursoService.obtenerTodosLosRecursos();
+        Assert.assertEquals(1, recursos.size()); // Asegúrate de que solo haya un recurso asignado
     }
 
     @Then("debe tener {int} unidades de {string}")
-    public void debe_tener_unidades_de(int cantidadEsperada, String tipoRecursoString) {
-        List<RecursoDto> recursos = recursoService.obtenerRecursosPorCiudad(ciudadId);
-        RecursoDto recursoActual = recursos.stream()
-                .filter(r -> r.getTipoRecursos().name().equalsIgnoreCase(tipoRecursoString))
-                .findFirst()
-                .orElse(null);
-
-        assertEquals("La cantidad de recurso " + tipoRecursoString + " no es la esperada", cantidadEsperada, recursoActual.getCantidad());
+    public void debe_tener_unidades_de(int cantidad, String tipoRecurso) {
+        RecursoDto recurso = recursoService.obtenerRecursoPorTipoYCiudad(tipoRecurso, ciudadId);
+        Assert.assertNotNull(recurso);
+        Assert.assertEquals(cantidad, recurso.getCantidad());
     }
 
     @Given("el jugador tiene generadores de recursos asignados a su ciudad")
     public void el_jugador_tiene_generadores_de_recursos_asignados_a_su_ciudad() {
-        // Lógica para asignar generadores de recursos a la ciudad creada
-        generadorService.asignarGeneradores(ciudadId);
+        // Crear generadores para la ciudad existente
+        Genera_recursoDto generaRecursoDto = new Genera_recursoDto();
+        generaRecursoDto.setTipoGeneradorRecurso(Tipo_generador_recurso.CANTERAS);
+        generaRecursoDto.setTipoRecursoGenerado(Tipo_recurso.PIEDRA);
+        generaRecursoDto.setCapacidadGeneracion(5);
+        generaRecursoDto.setCiudadId(ciudadId);
+        generaRecursoService.crearGenerador(generaRecursoDto);
+
+        // Repite para otros generadores (MINAS y RIO)
     }
 
     @When("el jugador decide generar recursos manualmente")
-    public void el_jugador_decide_generar_recursos_manualmente() {
-        // Lógica para generar recursos manualmente
-        recursoService.generarRecursosManual(ciudadId);
+    public void el_jugador_decide_generar_recursos_manual() {
+        // Lógica para generar recursos manualmente (ej. llamar al método adecuado en el servicio)
+        recursoService.aumentarRecurso(ciudadId, Tipo_recurso.PIEDRA, 5);
     }
 
     @Then("los recursos se añaden a los recursos actuales de la ciudad")
     public void los_recursos_se_añaden_a_los_recursos_actuales_de_la_ciudad() {
-        List<RecursoDto> recursos = recursoService.obtenerRecursosPorCiudad(ciudadId);
-        // Verifica que la cantidad de recursos haya aumentado según la generación manual
-        // Aquí necesitarás lógica específica para verificar que la cantidad aumentó correctamente
+        RecursoDto recurso = recursoService.obtenerRecursoPorTipoYCiudad(Tipo_recurso.PIEDRA, ciudadId);
+        Assert.assertNotNull(recurso);
+        Assert.assertTrue(recurso.getCantidad() > 100); // Verifica que la cantidad se haya incrementado
     }
 
     @Given("una ciudad tiene generadores de recursos activos")
     public void una_ciudad_tiene_generadores_de_recursos_activos() {
-        // Lógica para activar generadores de recursos si no están ya activos
-        generadorService.activarGeneradores(ciudadId);
+        // Verificar que la ciudad tiene generadores activos (puedes usar el paso anterior)
+        List<Genera_recursoDto> generadores = generaRecursoService.obtenerGeneradoresPorCiudad(ciudadId);
+        Assert.assertFalse(generadores.isEmpty());
     }
 
     @When("el tiempo programado de generación de recursos se cumple")
     public void el_tiempo_programado_de_generacion_de_recursos_se_cumple() {
-        // Simulación del paso del tiempo para que se ejecuten los generadores
-        generadorService.generarRecursosAutomaticamente(ciudadId);
+        // Simula la lógica de tiempo, tal vez llamando a un método en el servicio que "avance" el tiempo
+        // Por simplicidad, podrías hacer una llamada directa a un método que aumente los recursos
+        generaRecursoService.generarRecursosAutomáticamente(ciudadId);
     }
 
     @Then("los generadores de recursos añaden más recursos a la ciudad")
     public void los_generadores_de_recursos_añaden_mas_recursos_a_la_ciudad() {
-        // Verifica que los recursos se han añadido a la ciudad
-        List<RecursoDto> recursos = recursoService.obtenerRecursosPorCiudad(ciudadId);
-        // Aquí necesitas lógica específica para comprobar que los recursos han aumentado
+        RecursoDto recurso = recursoService.obtenerRecursoPorTipoYCiudad(Tipo_recurso.PIEDRA, ciudadId);
+        Assert.assertTrue(recurso.getCantidad() > 105); // Verifica que la cantidad se haya incrementado por la generación automática
+    }
+
+    @Given("creo una ciudad llamada {string}")
+    public void creo_una_ciudad_llamada_generadora(String nombreCiudad) {
+        CiudadDto ciudadDto = new CiudadDto();
+        ciudadDto.setNombre(nombreCiudad);
+        ciudadId = ciudadService.crearCiudad(ciudadDto).getId();
     }
 
     @Then("la ciudad {string} debe tener {int} generadores de recursos asignados")
-    public void la_ciudad_debe_tener_generadores_de_recursos_asignados(String ciudadNombre, int cantidadEsperada) {
-        List<Genera_recursoDto> generadores = generadorService.obtenerGeneradoresPorCiudad(ciudadId);
-        assertEquals("La ciudad debe tener " + cantidadEsperada + " generadores de recursos", cantidadEsperada, generadores.size());
+    public void la_ciudad_debe_tener_generadores_de_recursos_asignados(String nombreCiudad, int cantidadGeneradores) {
+        List<Genera_recursoDto> generadores = generaRecursoService.obtenerGeneradoresPorCiudad(ciudadId);
+        Assert.assertEquals(cantidadGeneradores, generadores.size());
     }
 
     @Then("debe tener un generador de tipo {string} que genera {string}")
-    public void debe_tener_un_generador_de_tipo_que_genera(String tipoGeneradorString, String tipoRecursoString) {
-        List<Genera_recursoDto> generadores = generadorService.obtenerGeneradoresPorCiudad(ciudadId);
-        boolean generadorExists = generadores.stream()
-                .anyMatch(g -> g.getTipoGenerador().name().equalsIgnoreCase(tipoGeneradorString) && g.getTipoRecursoGenerado().name().equalsIgnoreCase(tipoRecursoString));
-
-        assertEquals("El generador de tipo " + tipoGeneradorString + " que genera " + tipoRecursoString + " no existe", true, generadorExists);
+    public void debe_tener_un_generador_de_tipo_que_genera(String tipoGenerador, String tipoRecurso) {
+        List<Genera_recursoDto> generadores = generaRecursoService.obtenerGeneradoresPorCiudad(ciudadId);
+        boolean encontrado = generadores.stream()
+                .anyMatch(g -> g.getTipoGeneradorRecurso().name().equals(tipoGenerador) &&
+                        g.getTipoRecursoGenerado().name().equals(tipoRecurso));
+        Assert.assertTrue("No se encontró el generador esperado.", encontrado);
     }
 }
-}
+

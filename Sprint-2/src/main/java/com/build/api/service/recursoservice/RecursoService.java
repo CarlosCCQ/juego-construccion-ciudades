@@ -2,6 +2,7 @@ package com.build.api.service.recursoservice;
 
 import com.build.api.dto.RecursoDto;
 import com.build.api.model.ciudad.Ciudad;
+import com.build.api.model.generador.Genera_recuso;
 import com.build.api.model.recurso.Recurso;
 import com.build.api.model.recurso.Tipo_recurso;
 import com.build.api.repository.CiudadRepository;
@@ -98,5 +99,33 @@ public class RecursoService implements IRecursoService{
                 recurso.getCantidad(),
                 recurso.getCiudad().getId()
         );
+    }
+
+    public boolean verificarSuficientesRecursos(Long ciudadId, Tipo_recurso tipoRecurso, int cantidadRequerida) {
+        Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecurso, ciudadRepository.findById(ciudadId)
+                        .orElseThrow(() -> new RuntimeException("Ciudad no encontrada")))
+                .stream().findFirst().orElse(null);
+
+        return recurso != null && recurso.getCantidad() >= cantidadRequerida;
+    }
+
+    public RecursoDto obtenerRecursoPorTipoYCiudad(Tipo_recurso tipoRecurso, Long ciudadId) {
+        Recurso recurso = recursoRepository.findByTipoRecursosAndCiudad(tipoRecurso, ciudadRepository.findById(ciudadId)
+                        .orElseThrow(() -> new RuntimeException("Ciudad no encontrada")))
+                .stream().findFirst().orElse(null);
+
+        return recurso != null ? convertirARecursoDto(recurso) : null;
+    }
+
+    // Nuevo método para generar recursos automáticamente
+    public void generarRecursosAutomáticamente(Long ciudadId) {
+        Ciudad ciudad = ciudadRepository.findById(ciudadId)
+                .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
+
+        List<Genera_recuso> generadores = generaRecursoRepository.findByCiudad(ciudad);
+        for (Genera_recuso generador : generadores) {
+            int cantidadGenerada = (int) (Math.random() * 7) + 2; // Genera entre 2 y 8
+            aumentarRecurso(ciudadId, generador.getTipoRecursoGenerado(), cantidadGenerada);
+        }
     }
 }
