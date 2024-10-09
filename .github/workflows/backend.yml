@@ -8,7 +8,7 @@ on:
       - main
     paths:
       - 'Sprint-2/docker-compose.yml'
-      - '.github/workflows/backend_2.yml'
+      - '.github/workflows/backend.yml'
 
 jobs:
   compile:
