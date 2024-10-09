@@ -2,77 +2,77 @@
 ## 1. Dependencias principales
 
   ### 1. Spring Boot Starter Actuator
-     - **Grupo:** `org.springframework.boot`
-     - **ArtifactId:** `spring-boot-starter-actuator`
-     - **Descripción:** Esta dependencia permite monitorear y gestionar la aplicación en producción, brindando endpoints que exponen información del sistema, métricas y configuraciones.
+  - **Grupo:** `org.springframework.boot`
+  - **ArtifactId:** `spring-boot-starter-actuator`
+  - **Descripción:** Esta dependencia permite monitorear y gestionar la aplicación en producción, brindando endpoints que exponen información del sistema, métricas y configuraciones.
   
   ### 2. Spring Boot Starter Data JPA
-     - **Grupo:** `org.springframework.boot`
-     - **ArtifactId:** `spring-boot-starter-data-jpa`
-     - **Descripción:** Proporciona integración con JPA (Java Persistence API) y herramientas para trabajar con bases de datos de manera sencilla mediante Spring Data.
+  - **Grupo:** `org.springframework.boot`
+  - **ArtifactId:** `spring-boot-starter-data-jpa`
+  - **Descripción:** Proporciona integración con JPA (Java Persistence API) y herramientas para trabajar con bases de datos de manera sencilla mediante Spring Data.
   
   ### 3. Spring Boot Starter Web
-     - **Grupo:** `org.springframework.boot`
-     - **ArtifactId:** `spring-boot-starter-web`
-     - **Descripción:** Este módulo configura las dependencias para desarrollar aplicaciones web RESTful. Incluye Tomcat como servidor y soporte para HTTP y RESTful APIs.
+  - **Grupo:** `org.springframework.boot`
+  - **ArtifactId:** `spring-boot-starter-web`
+  - **Descripción:** Este módulo configura las dependencias para desarrollar aplicaciones web RESTful. Incluye Tomcat como servidor y soporte para HTTP y RESTful APIs.
   
   ## Dependencias de Bases de Datos
   
   ### 4. H2 Database
-     - **Grupo:** `com.h2database`
-     - **ArtifactId:** `h2`
-     - **Alcance:** `runtime`
-     - **Descripción:** H2 es una base de datos en memoria utilizada en este proyecto principalmente para pruebas, ofreciendo una base de datos rápida y ligera.
+  - **Grupo:** `com.h2database`
+  - **ArtifactId:** `h2`
+  - **Alcance:** `runtime`
+  - **Descripción:** H2 es una base de datos en memoria utilizada en este proyecto principalmente para pruebas, ofreciendo una base de datos rápida y ligera.
   
   ### 5. PostgreSQL Driver
-     - **Grupo:** `org.postgresql`
-     - **ArtifactId:** `postgresql`
-     - **Alcance:** `runtime`
-     - **Descripción:** Driver JDBC para PostgreSQL, necesario para conectar la aplicación a una base de datos PostgreSQL en producción o desarrollo.
+  - **Grupo:** `org.postgresql`
+  - **ArtifactId:** `postgresql`
+  - **Alcance:** `runtime`
+  - **Descripción:** Driver JDBC para PostgreSQL, necesario para conectar la aplicación a una base de datos PostgreSQL en producción o desarrollo.
   
   ## Dependencias de Monitoreo
   
   ### 6. Micrometer Registry Prometheus
-     - **Grupo:** `io.micrometer`
-     - **ArtifactId:** `micrometer-registry-prometheus`
-     - **Alcance:** `runtime`
-     - **Descripción:** Micrometer es una biblioteca para gestionar métricas, y este módulo permite integrar las métricas de la aplicación con Prometheus, un sistema de monitoreo y alerta.
+  - **Grupo:** `io.micrometer`
+  - **ArtifactId:** `micrometer-registry-prometheus`
+  - **Alcance:** `runtime`
+  - **Descripción:** Micrometer es una biblioteca para gestionar métricas, y este módulo permite integrar las métricas de la aplicación con Prometheus, un sistema de monitoreo y alerta.
   
   ## Dependencias de Utilidades
   
   ### 7. Lombok
-     - **Grupo:** `org.projectlombok`
-     - **ArtifactId:** `lombok`
-     - **Opcional:** `true`
-     - **Descripción:** Lombok facilita la escritura de código Java, generando automáticamente getters, setters, constructores y otros métodos, reduciendo el código boilerplate.
+  - **Grupo:** `org.projectlombok`
+  - **ArtifactId:** `lombok`
+  - **Opcional:** `true`
+  - **Descripción:** Lombok facilita la escritura de código Java, generando automáticamente getters, setters, constructores y otros métodos, reduciendo el código boilerplate.
   
   ## Dependencias para Pruebas
   
   ### 8. Spring Boot Starter Test
-     - **Grupo:** `org.springframework.boot`
-     - **ArtifactId:** `spring-boot-starter-test`
-     - **Alcance:** `test`
-     - **Descripción:** Conjunto de herramientas de prueba integradas para Spring Boot, que incluye JUnit, Mockito y otras utilidades para simplificar la creación de pruebas.
+  - **Grupo:** `org.springframework.boot`
+  - **ArtifactId:** `spring-boot-starter-test`
+  - **Alcance:** `test`
+  - **Descripción:** Conjunto de herramientas de prueba integradas para Spring Boot, que incluye JUnit, Mockito y otras utilidades para simplificar la creación de pruebas.
   
   ### 9. Cucumber Java
-     - **Grupo:** `io.cucumber`
-     - **ArtifactId:** `cucumber-java`
-     - **Versión:** `7.20.0`
-     - **Descripción:** Biblioteca principal de Cucumber, utilizada para escribir pruebas de aceptación en lenguaje natural, permitiendo expresar casos de prueba en formato de historias de usuario.
+  - **Grupo:** `io.cucumber`
+  - **ArtifactId:** `cucumber-java`
+  - **Versión:** `7.20.0`
+  - **Descripción:** Biblioteca principal de Cucumber, utilizada para escribir pruebas de aceptación en lenguaje natural, permitiendo expresar casos de prueba en formato de historias de usuario.
   
   ### 10. Cucumber JUnit
-     - **Grupo:** `io.cucumber`
-     - **ArtifactId:** `cucumber-junit`
-     - **Versión:** `7.20.0`
-     - **Alcance:** `test`
-     - **Descripción:** Integra Cucumber con JUnit, facilitando la ejecución de pruebas escritas en formato Gherkin, mediante la plataforma de pruebas JUnit.
+  - **Grupo:** `io.cucumber`
+  - **ArtifactId:** `cucumber-junit`
+  - **Versión:** `7.20.0`
+  - **Alcance:** `test`
+  - **Descripción:** Integra Cucumber con JUnit, facilitando la ejecución de pruebas escritas en formato Gherkin, mediante la plataforma de pruebas JUnit.
   
   ### 11. Cucumber Spring
-     - **Grupo:** `io.cucumber`
-     - **ArtifactId:** `cucumber-spring`
-     - **Versión:** `7.20.0`
-     - **Alcance:** `test`
-     - **Descripción:** Proporciona integración entre Cucumber y Spring, permitiendo utilizar beans de Spring en las pruebas y facilitando el manejo de contexto de aplicación durante las pruebas de aceptación.
+  - **Grupo:** `io.cucumber`
+  - **ArtifactId:** `cucumber-spring`
+  - **Versión:** `7.20.0`
+  - **Alcance:** `test`
+ - **Descripción:** Proporciona integración entre Cucumber y Spring, permitiendo utilizar beans de Spring en las pruebas y facilitando el manejo de contexto de aplicación durante las pruebas de aceptación.
 ## 2. Configuración inicial del tablero Kanban y el Product Backlog
 
 - **Tablero Kanban**: Se creó el tablero Kanban en GitHub para gestionar y visualizar el progreso del Sprint 1. El tablero contiene las siguientes columnas:
