@@ -85,7 +85,7 @@ jobs:
 
       - name: Upload Cucumber HTML report
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
           path: Sprint-2/target/cucumber-reports.html
