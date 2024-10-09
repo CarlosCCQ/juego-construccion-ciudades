@@ -6,6 +6,7 @@ import com.build.api.model.generador.Genera_recuso;
 import com.build.api.model.recurso.Recurso;
 import com.build.api.model.recurso.Tipo_recurso;
 import com.build.api.repository.CiudadRepository;
+import com.build.api.repository.GeneraRecursoRepository;
 import com.build.api.repository.RecursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,13 @@ public class RecursoService implements IRecursoService{
 
     @Autowired
     private CiudadRepository ciudadRepository;
+
+    private final GeneraRecursoRepository generaRecursoRepository;
+
+    @Autowired
+    public RecursoService(GeneraRecursoRepository generaRecursoRepository) {
+        this.generaRecursoRepository = generaRecursoRepository;
+    }
 
     @Override
     public List<RecursoDto> obtenerTodosLosRecursos() {
@@ -117,7 +125,6 @@ public class RecursoService implements IRecursoService{
         return recurso != null ? convertirARecursoDto(recurso) : null;
     }
 
-    // Nuevo método para generar recursos automáticamente
     public void generarRecursosAutomáticamente(Long ciudadId) {
         Ciudad ciudad = ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));

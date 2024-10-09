@@ -214,9 +214,10 @@ public class CiudadService implements ICiudadService{
     @Override
     public void eliminarTodasLasCiudades() {
         ciudadRepository.deleteAll();
+    }
 
     @Override
-    public boolean verificarYSubirNivelCiudad(Long ciudadId, int objetivoEdificios) {
+    public boolean verificarYSubirNivelCiudad(Long ciudadId, int objetivoEdificios){
         Ciudad ciudad = ciudadRepository.findById(ciudadId)
                 .orElseThrow(() -> new RuntimeException("Ciudad no encontrada"));
 
