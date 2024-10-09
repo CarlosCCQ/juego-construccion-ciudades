@@ -81,7 +81,7 @@ jobs:
       - name: Run Cucumber tests
         run: |
           cd Sprint-2
-          chmod +x ./mvnw verify -Dcucumber.options="--plugin html:target/cucumber-reports.html"
+          ./mvnw verify -Dcucumber.options="--plugin html:target/cucumber-reports.html"
 
       - name: Upload Cucumber HTML report
         if: always()
