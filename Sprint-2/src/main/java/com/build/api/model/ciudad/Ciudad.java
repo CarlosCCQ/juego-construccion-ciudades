@@ -58,7 +58,7 @@ public class Ciudad {
         this.edificios = edificios;
     }
 
-/*    public void addRecurso(Tipo_recurso tipo, int cantidad) {
+/*    public void addRecurso(Tipo_recurso tipo, inInicia sesión o suscríbete para obtener respuestas más inteligentes, cargar archivos e imágenes y mucho más.t cantidad) {
         Recurso recurso = recursos.stream()
                 .filter(r -> r.getTipoRecursos() == tipo)
                 .findFirst()
