@@ -1,4 +1,4 @@
-package com.build.api.steps;
+package com.build.api.stepsEdificios;
 
 import com.build.api.model.ciudad.Ciudad;
 import com.build.api.model.edificio.Edificio;

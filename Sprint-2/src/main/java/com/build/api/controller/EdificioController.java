@@ -16,7 +16,7 @@ public class EdificioController {
     @Autowired
     private IEdificioService edificioService;
 
-    @GetMapping
+    @GetMapping("/todos")
     public List<EdificioDto> obtenerTodosLosEdificios() {
         return edificioService.obtenerTodosLosEdificios();
     }
@@ -26,17 +26,17 @@ public class EdificioController {
         return ResponseEntity.ok(edificioService.obtenerEdificioPorId(id));
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<EdificioDto> crearEdificio(@RequestBody EdificioDto edificioDto) {
         return new ResponseEntity<>(edificioService.crearEdificio(edificioDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<EdificioDto> actualizarEdificio(@PathVariable Long id, @RequestBody EdificioDto edificioDto) {
         return ResponseEntity.ok(edificioService.actualizarEdificio(id, edificioDto));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarEdificio(@PathVariable Long id) {
         edificioService.eliminarEdificio(id);
         return ResponseEntity.noContent().build();

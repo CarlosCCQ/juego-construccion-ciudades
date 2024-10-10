@@ -1,11 +1,10 @@
-package com.build.api.steps;
+package com.build.api.stepsCiudad;
 
 import com.build.api.dto.CiudadDto;
 import com.build.api.dto.Genera_recursoDto;
 import com.build.api.model.ciudad.Ciudad;
 import com.build.api.model.edificio.Edificio;
 import com.build.api.model.edificio.Tipo_edificio;
-import com.build.api.model.generador.Genera_recuso;
 import com.build.api.model.generador.Tipo_generador_recurso;
 import com.build.api.model.recurso.Tipo_recurso;
 import com.build.api.service.ciudadservice.CiudadService;
@@ -68,7 +67,7 @@ public class CiudadSteps {
         generadores.add(generador);
 
 
-        generaRecursoService.crearGenerador(generador);
+        //generaRecursoService.crearGenerador(generador);
         System.out.println("Generadores y edificios añadidos a la ciudad.");
     }
 

@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,15 +38,16 @@ public class CiudadRepositoryTest {
   @Test
   public void testFindByNombre() {
     // Probar la búsqueda por nombre
-    List<Ciudad> ciudades = ciudadRepository.findByNombre("Ciudad Lima");
-    assertEquals(1, ciudades.size());
-    assertEquals("Ciudad Lima", ciudades.get(0).getNombre());
+    Optional<Ciudad> ciudadOpt = ciudadRepository.findByNombre("Ciudad Lima");
+    assertTrue(ciudadOpt.isPresent(), "La ciudad no fue encontrada");
+    Ciudad ciudad = ciudadOpt.get();
+    assertEquals("Ciudad Lima", ciudad.getNombre());
   }
 
   @Test
   public void testFindByNombreNotFound() {
     // Probar búsqueda de una ciudad que no existe
-    List<Ciudad> ciudades = ciudadRepository.findByNombre("Ciudad Cusco");
-    assertTrue(ciudades.isEmpty());
+    Optional<Ciudad> ciudadOptional = ciudadRepository.findByNombre("Ciudad Cusco");
+    assertFalse(ciudadOptional.isPresent(), "Se encontró una ciudad cuando no debería");
   }
 }

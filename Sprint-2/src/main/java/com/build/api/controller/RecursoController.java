@@ -19,31 +19,31 @@ public class RecursoController {
         this.recursoService = recursoService;
     }
 
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity<List<RecursoDto>> obtenerTodosLosRecursos() {
         List<RecursoDto> recursos = recursoService.obtenerTodosLosRecursos();
         return ResponseEntity.ok(recursos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obtener/{id}")
     public ResponseEntity<RecursoDto> obtenerRecursoPorId(@PathVariable Long id) {
         RecursoDto recurso = recursoService.obtenerRecursoPorId(id);
         return ResponseEntity.ok(recurso);
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<RecursoDto> crearRecurso(@RequestBody RecursoDto recursoDto) {
         RecursoDto nuevoRecurso = recursoService.crearRecurso(recursoDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoRecurso);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actualizar/{id}")
     public ResponseEntity<RecursoDto> actualizarRecurso(@PathVariable Long id, @RequestBody RecursoDto recursoDto) {
         RecursoDto recursoActualizado = recursoService.actualizarRecurso(id, recursoDto);
         return ResponseEntity.ok(recursoActualizado);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarRecurso(@PathVariable Long id) {
         recursoService.eliminarRecurso(id);
         return ResponseEntity.noContent().build();

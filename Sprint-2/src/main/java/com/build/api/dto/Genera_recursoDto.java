@@ -9,14 +9,15 @@ public class Genera_recursoDto {
     private Tipo_generador_recurso tipoGeneradorRecurso;
     private Long ciudadId;
     private Tipo_recurso tipoRecursoGenerado;
-    private int capacidadGeneracion;
+    private int cantidadGenerada;
 
     public Genera_recursoDto() {}
 
-    public Genera_recursoDto(Tipo_generador_recurso tipoGeneradorRecurso, Long ciudadId, Tipo_recurso tipoRecursoGenerado){
+    public Genera_recursoDto(Tipo_generador_recurso tipoGeneradorRecurso, Long ciudadId, Tipo_recurso tipoRecursoGenerado,int cantidadGenerada){
         this.tipoGeneradorRecurso = tipoGeneradorRecurso;
         this.ciudadId = ciudadId;
         this.tipoRecursoGenerado = tipoRecursoGenerado;
+        this.cantidadGenerada = cantidadGenerada;
     }
 
 }
